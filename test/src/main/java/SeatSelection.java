@@ -14,7 +14,7 @@ public class SeatSelection extends JFrame {
         setSize(500, 400); // กำหนดขนาดหน้าต่าง
         setLocationRelativeTo(null); // จัดให้หน้าต่างอยู่ตรงกลางหน้าจอ
 
-        setLayout(new GridBagLayout()); // ใช้ GridBagLayout เพื่อจัดการ layout ของปุ่ม
+        setLayout(new GridBagLayout()); // ใช้ GridBagLayout เพื่อจัดการ layout ของปุ่ม eiei
         GridBagConstraints gbc = new GridBagConstraints();
 
         // ชื่อแถวและประเภทที่นั่ง
