@@ -15,7 +15,7 @@ public abstract class DBconnect {
     protected ResultSet rs;
 
     public DBconnect() {
-        this.url = "jdbc:sqlite:C:\\Users\\marttpq\\Desktop\\SpeedySeats\\test\\src\\main\\resources\\spd.db";
+        this.url = "jdbc:sqlite:test/src/main/resources/spd.db";
     }
 
     public DBconnect(String url) {
