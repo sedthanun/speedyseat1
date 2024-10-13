@@ -1,14 +1,13 @@
 public class Seat {
-    private int SeatNumber;
+    private int seatID;
+    private String SeatNumber;
     private String seatType;
     private float seatPrice;
     private boolean isAvailable;
 
-    public Seat(){
 
-    }
-
-    public Seat(int SeatNumber, String seatType, float seatPrice, boolean isAvailable){
+    public Seat(int seatID, String SeatNumber, String seatType, float seatPrice, boolean isAvailable){
+        this.seatID = seatID;
         this.SeatNumber = SeatNumber;
         this.seatType = seatType;
         this.seatPrice = seatPrice;

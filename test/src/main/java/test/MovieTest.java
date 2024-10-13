@@ -5,20 +5,20 @@ import Database.DBquery;
 import java.sql.ResultSet;
 import java.util.*;
 
-public class Movie {
+public class MovieTest {
     private String movieName;
     private String movieDescription;
     private int movieRuntime;
     private String movieGenre;
     private String movieScreenFormat;
-    private List<Movie> movies;
+    private List<MovieTest> movieTests;
     private List<Showtime> showtimes;
 
-    public Movie(){
+    public MovieTest(){
 
     }
 
-    public Movie(String movieName, String movieDescription
+    public MovieTest(String movieName, String movieDescription
             , int movieRuntime, String movieGenre, String movieScreenFormat){
         this.movieName = movieName;
         this.movieDescription = movieDescription;
@@ -44,15 +44,15 @@ public class Movie {
         return showtimes;
     }
 
-    public List<Movie> getMovieList(){
-        return movies;
+    public List<MovieTest> getMovieList(){
+        return movieTests;
     }
 
     public static void main(String[] args) {
 //        Movie myMovie = new Movie("Teeyod 2", "Directed by Taweewat Wantha",110,"Horror", "IMAX");
 //        System.out.println("Movie: " + myMovie.movieName + " Description :" + myMovie.movieDescription + " Runtime: " + myMovie.movieRuntime + " Genre: " + myMovie.movieGenre + " System: " + myMovie.movieScreenFormat);
-        Movie movie =  new Movie();
-        movie.getMovie(1);
+        MovieTest movieTest =  new MovieTest();
+        movieTest.getMovie(1);
     }
 
 
