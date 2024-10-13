@@ -49,7 +49,7 @@ public class SeatSelection extends JFrame {
             for (int j = 0; j < 5; j++) {
                 gbc.gridx = j + 2; // เริ่มที่คอลัมน์ที่ 2
 
-                String seatName = seatRows[i][0] + (5 - j); // กำหนดชื่อปุ่มที่นั่ง เช่น E5, E4, ...
+                String seatName = seatRows[i][0] + (1+j); // กำหนดชื่อปุ่มที่นั่ง เช่น E5, E4, ...
                 JButton seatButton = new JButton(seatName);
                 seatButton.setPreferredSize(new Dimension(50, 30)); // กำหนดขนาดปุ่ม
                 seatButtons[i][j] = seatButton; // เก็บปุ่มที่นั่งใน array
