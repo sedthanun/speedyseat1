@@ -1,4 +1,5 @@
 package test;
+
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import javax.swing.*;
 import java.awt.*;
@@ -21,68 +22,93 @@ public class Showtime extends JFrame {
         JPanel mainPanel = new JPanel(new GridLayout(1, 2));
 
         // Left panel - โปสเตอร์ กับ คำอธิบาย
-        JPanel leftPanel = new JPanel(new GridLayout(2,1));
-        JLabel titleLabel = new JLabel("Title: Sample Movie");
-        JLabel genreLabel = new JLabel("Genre: Action");
-        JLabel Show = new JLabel("Select Theater:");
-        JPanel blank1 = new JPanel(new GridLayout(2,1));
-        showtimeLabel = new JLabel("Showtime: None Selected");
-        theaterLabel = new JLabel("Theater: None Selected");
-        titleLabel.setFont(new Font("SansSerif",Font.BOLD,18));
-        genreLabel.setFont(new Font("SansSerif",Font.BOLD,18));
-        showtimeLabel.setFont(new Font("SansSerif",Font.BOLD,18));
-        theaterLabel.setFont(new Font("SansSerif",Font.BOLD,18));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        genreLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        showtimeLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        theaterLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        JPanel leftPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
         // Movie poster
+        JPanel posterContainer = new JPanel(new BorderLayout());
         JLabel posterLabel = new JLabel();
-        posterLabel.setPreferredSize(new Dimension(150, 150));  // Set a fixed size
-        posterLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        posterLabel.setPreferredSize(new Dimension(500, 600));  // Set a larger size
 
         // Load image for poster
-        ImageIcon posterImage = new ImageIcon("/C://Users//pleum//OneDrive//เดสก์ท็อป//images.jpg/"); // poster path
-        posterLabel.setIcon(posterImage);  // Set the image as the poster
-        leftPanel.add(posterLabel);
+        ImageIcon posterImage = new ImageIcon("C:/Users/pleum/Downloads/tee Yod.jpg"); // poster path
+        Image scaledImage = posterImage.getImage().getScaledInstance(500, 600, Image.SCALE_SMOOTH);
+        posterLabel.setIcon(new ImageIcon(scaledImage));  // Set the scaled image as the poster
+        posterContainer.add(posterLabel, BorderLayout.CENTER);
 
+//        gbc.gridx = 0;
+//        gbc.gridy = 0;
+//        gbc.weightx = 1.0;
+//        gbc.weighty = 0.8;
+        gbc.fill = GridBagConstraints.BOTH;
+        leftPanel.add(posterContainer, gbc);
 
         // Movie details panel (title, genre, showtime, theater)
-        JPanel posterDescription = new JPanel(new GridLayout(4, 1));
+        JPanel posterDescription = new JPanel(new GridLayout(4, 1, 5, 5));
+        JLabel titleLabel = new JLabel("Title: Sample Movie");
+        JLabel genreLabel = new JLabel("Genre: Action");
+        theaterLabel = new JLabel("Theater: None Selected");
+        showtimeLabel = new JLabel("Showtime: None Selected");
+
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        genreLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        theaterLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        showtimeLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+
         posterDescription.add(titleLabel);
         posterDescription.add(genreLabel);
         posterDescription.add(theaterLabel);
         posterDescription.add(showtimeLabel);
-        blank1.add(posterDescription);
-        leftPanel.add(blank1);
 
+        gbc.gridy = 1;
+        gbc.weighty = 0.2;
+        leftPanel.add(posterDescription, gbc);
 
         // Middle panel - Theater and Showtime buttons
-        JPanel middlePanel = new JPanel(new GridLayout(0, 1));
+        JPanel middlePanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcMiddle = new GridBagConstraints();
+        gbcMiddle.gridwidth = GridBagConstraints.REMAINDER;
+        gbcMiddle.fill = GridBagConstraints.HORIZONTAL;
+        gbcMiddle.insets = new Insets(5, 5, 5, 5);
+
         ArrayList<JButton> theaterButtons = createTheaterButtons();
         showtimeButtons = createShowtimeButtons();
 
         // Add theater buttons
-        Show.setHorizontalAlignment(SwingConstants.CENTER);
-        Show.setFont(new Font("SansSerif",Font.BOLD,40));
-        middlePanel.add(Show);
+        JLabel showLabel = new JLabel("Select Theater:", SwingConstants.CENTER);
+        showLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+        middlePanel.add(showLabel, gbcMiddle);
+
         for (JButton button : theaterButtons) {
-            middlePanel.add(button);
+            button.setFont(new Font("SansSerif", Font.PLAIN, 18));
+            middlePanel.add(button, gbcMiddle);
         }
 
         // Showtime panel (initially hidden)
-        showtimePanel = new JPanel(new GridLayout(0, 1));
-        showtimePanel.add(new JLabel("Select Showtime:"));
+        showtimePanel = new JPanel(new GridBagLayout());
+        JLabel showtimeLabel = new JLabel("Select Showtime:", SwingConstants.CENTER);
+        showtimeLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+        showtimePanel.add(showtimeLabel, gbcMiddle);
+
         for (JButton button : showtimeButtons) {
-            showtimePanel.add(button);
+            button.setFont(new Font("SansSerif", Font.PLAIN, 18));
+            showtimePanel.add(button, gbcMiddle);
         }
         showtimePanel.setVisible(false);
-        middlePanel.add(showtimePanel);
+
+        // Add components to middle panel
+        gbcMiddle.weighty = 1;
+        gbcMiddle.fill = GridBagConstraints.BOTH;
+        middlePanel.add(showtimePanel, gbcMiddle);
+
+        // Add scroll pane to middle panel
+        JScrollPane scrollPane = new JScrollPane(middlePanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         // Add panels to main panel
         mainPanel.add(leftPanel);
-        mainPanel.add(middlePanel);
+        mainPanel.add(scrollPane);
 
         // Adding main panel to the frame
         add(mainPanel);
@@ -94,7 +120,6 @@ public class Showtime extends JFrame {
 
         for (String theater : theaters) {
             JButton button = new JButton(theater);
-            button.setFont(new Font("SansSerif",Font.PLAIN,24));
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
