@@ -32,7 +32,7 @@ public class payAtCounterPanel extends javax.swing.JPanel {
         roundedPanel1 = new RoundedPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(51, 51, 51));
+        setBackground(new java.awt.Color(35, 35, 35));
         setMaximumSize(new java.awt.Dimension(747, 363));
         setMinimumSize(new java.awt.Dimension(747, 363));
         setPreferredSize(new java.awt.Dimension(747, 363));

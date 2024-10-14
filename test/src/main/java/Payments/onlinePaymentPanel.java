@@ -37,7 +37,7 @@ public class onlinePaymentPanel extends javax.swing.JPanel {
         payButton = new javax.swing.JButton();
         cardNumber = new javax.swing.JPasswordField();
 
-        setBackground(new java.awt.Color(51, 51, 51));
+        setBackground(new java.awt.Color(35, 35, 35));
         setMaximumSize(new java.awt.Dimension(747, 363));
         setMinimumSize(new java.awt.Dimension(747, 363));
         setPreferredSize(new java.awt.Dimension(747, 363));

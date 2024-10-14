@@ -46,7 +46,7 @@ public class PaymentUI extends javax.swing.JFrame {
         payAtCounter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         qrCode.setOpaque(true);
-        qrCode.setBackground(new Color(102,102,102));
+        qrCode.setBackground(new Color(65,65,65));
     }
 
     /**
@@ -58,6 +58,7 @@ public class PaymentUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
+        jPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         roundedPanel1 = new RoundedPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -83,9 +84,9 @@ public class PaymentUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(40, 40, 40));
+//        jPanel1.setBackground(new java.awt.Color(30, 30, 30));
 
-        roundedPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        roundedPanel1.setBackground(new java.awt.Color(35, 35, 35));
         roundedPanel1.setPreferredSize(new java.awt.Dimension(1162, 327));
 
         URL imgURL = getClass().getResource("/Icon/Test_Poster.jpg");
@@ -219,7 +220,7 @@ public class PaymentUI extends javax.swing.JFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        roundedPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        roundedPanel2.setBackground(new java.awt.Color(35, 35, 35));
         roundedPanel2.setPreferredSize(new java.awt.Dimension(200, 200));
 
         qrCode.setBackground(new java.awt.Color(102, 102, 102));
@@ -286,12 +287,12 @@ public class PaymentUI extends javax.swing.JFrame {
                                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        methodPanel.setBackground(new java.awt.Color(51, 51, 51));
+        methodPanel.setBackground(new java.awt.Color(35, 35, 35));
         methodPanel.setMinimumSize(new java.awt.Dimension(300, 700));
         methodPanel.setPreferredSize(new java.awt.Dimension(300, 700));
         methodPanel.setLayout(new java.awt.BorderLayout());
 
-        roundedPanel3.setBackground(new java.awt.Color(51, 51, 51));
+        roundedPanel3.setBackground(new java.awt.Color(35, 35, 35));
 
         javax.swing.GroupLayout roundedPanel3Layout = new javax.swing.GroupLayout(roundedPanel3);
         roundedPanel3.setLayout(roundedPanel3Layout);
@@ -306,7 +307,7 @@ public class PaymentUI extends javax.swing.JFrame {
 
         methodPanel.add(roundedPanel3, java.awt.BorderLayout.LINE_START);
 
-        roundedPanel4.setBackground(new java.awt.Color(51, 51, 51));
+        roundedPanel4.setBackground(new java.awt.Color(35, 35, 35));
 
         javax.swing.GroupLayout roundedPanel4Layout = new javax.swing.GroupLayout(roundedPanel4);
         roundedPanel4.setLayout(roundedPanel4Layout);
@@ -374,13 +375,13 @@ public class PaymentUI extends javax.swing.JFrame {
     private void qrCodeMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         qrCode.setOpaque(true);
-        qrCode.setBackground(new Color(102,102,102));
+        qrCode.setBackground(new Color(65, 65, 65));
 
         onlineBanking.setOpaque(true);
-        onlineBanking.setBackground(new Color(51, 51, 51));
+        onlineBanking.setBackground(new Color(35, 35, 35));
 
         payAtCounter.setOpaque(true);
-        payAtCounter.setBackground(new Color(51, 51, 51));
+        payAtCounter.setBackground(new Color(35, 35, 35));
 
         cardLayout.show(mainPanel, "qrCodePanel");
     }
@@ -388,13 +389,13 @@ public class PaymentUI extends javax.swing.JFrame {
     private void onlineBankingMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         onlineBanking.setOpaque(true);
-        onlineBanking.setBackground(new Color(102,102,102));
+        onlineBanking.setBackground(new Color(65,65,65));
 
         qrCode.setOpaque(true);
-        qrCode.setBackground(new Color(51, 51, 51));
+        qrCode.setBackground(new Color(35, 35, 35));
 
         payAtCounter.setOpaque(true);
-        payAtCounter.setBackground(new Color(51, 51, 51));
+        payAtCounter.setBackground(new Color(35, 35, 35));
 
         cardLayout.show(mainPanel, "onlinePaymentPanel");
     }
@@ -402,13 +403,13 @@ public class PaymentUI extends javax.swing.JFrame {
     private void payAtCounterMouseClicked(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         payAtCounter.setOpaque(true);
-        payAtCounter.setBackground(new Color(102,102,102));
+        payAtCounter.setBackground(new Color(65,65,65));
 
         qrCode.setOpaque(true);
-        qrCode.setBackground(new Color(51, 51, 51));
+        qrCode.setBackground(new Color(35, 35, 35));
 
         onlineBanking.setOpaque(true);
-        onlineBanking.setBackground(new Color(51, 51, 51));
+        onlineBanking.setBackground(new Color(35, 35, 35));
 
         cardLayout.show(mainPanel, "payAtCounterPanel");
     }
@@ -445,6 +446,7 @@ public class PaymentUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanel1;
     private RoundedPanel methodPanel;
     private javax.swing.JLabel movieGenre;

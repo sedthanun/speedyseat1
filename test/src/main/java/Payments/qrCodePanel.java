@@ -33,7 +33,7 @@ public class qrCodePanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         timer = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(51, 51, 51));
+        setBackground(new java.awt.Color(35, 35, 35));
         setMaximumSize(new java.awt.Dimension(747, 363));
         setMinimumSize(new java.awt.Dimension(747, 363));
         setPreferredSize(new java.awt.Dimension(747, 363));
@@ -46,7 +46,7 @@ public class qrCodePanel extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("QR Code");
 
-        roundedPanel1.setBackground(new java.awt.Color(0, 102, 153));
+        roundedPanel1.setBackground(new java.awt.Color(0, 121, 253));
         roundedPanel1.setPreferredSize(new java.awt.Dimension(700, 700));
 
         roundedPanel2.setBackground(new java.awt.Color(255, 255, 255));
