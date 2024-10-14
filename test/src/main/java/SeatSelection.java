@@ -64,7 +64,7 @@ public class SeatSelection extends JFrame {
                                     "Seat " + seatName + " has been deselected",
                                     "Seat Selection",
                                     JOptionPane.INFORMATION_MESSAGE);
-                        } else if (selectedSeats.size() < 3) { // จำกัดให้เลือกได้สูงสุด 3 ที่นั่ง
+                        } else if (selectedSeats.size() < 5) { // จำกัดให้เลือกได้สูงสุด 3 ที่นั่ง
                             selectedSeats.add(seatName); // เลือกที่นั่ง
                             seatButton.setEnabled(false); // ปิดปุ่มที่นั่ง
                             JOptionPane.showMessageDialog(SeatSelection.this,
@@ -73,7 +73,7 @@ public class SeatSelection extends JFrame {
                                     JOptionPane.INFORMATION_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(SeatSelection.this,
-                                    "YOU CAN ONLY SELECT UP TO 3 SEATS!",
+                                    "YOU CAN ONLY SELECT UP TO 5 SEATS!",
                                     "Limit Exceeded",
                                     JOptionPane.WARNING_MESSAGE);
                         }
