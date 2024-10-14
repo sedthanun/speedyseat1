@@ -10,11 +10,11 @@ public class Movie {
     private int movieRuntime;
     private String movieGenre;
     private float movieRating;
-    private byte moviePoster;
+    private byte[] moviePoster;
     private List<Showtime> showtimes;
     private static ArrayList<Movie> movies;
 
-    public Movie(int movieID, String movieName, String movieDescription, int movieRuntime, String movieGenre, float movieRating, byte moviePoster){
+    public Movie(int movieID, String movieName, String movieDescription, int movieRuntime, String movieGenre, float movieRating, byte[] moviePoster){
         this.movieID = movieID;
         this.movieName= movieName;
         this.movieDescription = movieDescription;
@@ -38,6 +38,10 @@ public class Movie {
         return movieInfo;
     }
 
+    public List<Showtime> getShowtimeList(){
+        return this.showtimes;
+    }
+
     public static List<Movie> getMovieList(){
         return movies;
     }
@@ -50,7 +54,7 @@ public class Movie {
                 int movieID = rs.getInt("movie_id");
                 String movieName = rs.getString("movie_name");
                 String movieDescription = rs.getString("movie_description");
-                byte moviePoster = rs.getByte("movie_poster");
+                byte[] moviePoster = rs.getBytes("movie_poster");
                 float movieRating = rs.getFloat("movie_rating");
                 int movieRuntime = rs.getInt("movie_runtime");
                 String movieGenre = rs.getString("movie_genre");
@@ -75,9 +79,12 @@ public class Movie {
                     String sound = rs.getString("sound");
                     String subtitle = rs.getString("subtitle");
 
+
                     Showtime showtime = new Showtime(showtimeID, showtimeDateTime, screenFormat, sound, subtitle);
+
                     showtime.setTheatre(showtime.getTheatreFromDB());
                     showtime.setSeats(showtime.getSeatsFromDB());
+                    
                     movie.showtimes.add(showtime);
                 }
                 DBquery.getInstance().disconnect(); //อย่าลืม disconnectด้วยครับ
