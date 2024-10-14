@@ -1,23 +1,37 @@
-import javax.swing.*; // สำหรับใช้ JFrame, JButton, JOptionPane, JLabel
-import java.awt.*; // สำหรับจัดการ Layout เช่น GridBagLayout, Dimension
-import java.awt.event.*; // สำหรับใช้ ActionListener
-import java.util.ArrayList; // สำหรับใช้ ArrayList ในการเก็บข้อมูลที่นั่ง
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
 import com.formdev.flatlaf.themes.*;
 
 public class SeatSelection extends JFrame {
-    private final ArrayList<String> selectedSeats = new ArrayList<>(); // เก็บที่นั่งที่เลือก
-    private final JButton[][] seatButtons = new JButton[5][5]; // เก็บปุ่มที่นั่ง
+    private final ArrayList<String> selectedSeats = new ArrayList<>();
+    private final JButton[][] seatButtons = new JButton[5][5];
+    private final JLabel selectedSeatLabel = new JLabel("SELECTED SEAT");
+    private final JLabel totalPriceLabel = new JLabel("TOTAL PRICE");
+    private final JLabel selectedSeatListLabel = new JLabel("");
+    private final JLabel totalPriceValueLabel = new JLabel("0 THB");
+    private int totalPrice = 0; // Variable to track the total price
 
     public SeatSelection() {
         setTitle("Seat Selection");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE); // ปิดหน้าต่างเมื่อคลิกปุ่มปิด
-        setSize(500, 400); // กำหนดขนาดหน้าต่าง
-        setLocationRelativeTo(null); // จัดให้หน้าต่างอยู่ตรงกลางหน้าจอ
-
-        setLayout(new GridBagLayout()); // ใช้ GridBagLayout เพื่อจัดการ layout ของปุ่ม eiei
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setSize(500, 500);
+        setLocationRelativeTo(null);
+        setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        // ชื่อแถวและประเภทที่นั่ง
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridwidth = 7;
+        gbc.insets = new Insets(10, 10, 15, 10);
+        JLabel screenLabel = new JLabel("SCREEN", SwingConstants.CENTER);
+        screenLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        screenLabel.setForeground(Color.blue); // ตั้งค่าสีฟ้าให้กับข้อความ
+        add(screenLabel, gbc);
+
+        gbc.gridwidth = 1;
+
         String[][] seatRows = {
                 {"E", "Standard"},
                 {"D"},
@@ -26,47 +40,47 @@ public class SeatSelection extends JFrame {
                 {"A", "Honeymoon"}
         };
 
-        // วนลูปแถวที่นั่งและเพิ่มปุ่มที่นั่ง
         for (int i = 0; i < seatRows.length; i++) {
-            gbc.gridy = i; // ตั้งค่าลำดับแถว
-            gbc.gridx = 0; // ตั้งค่าลำดับคอลัมน์
+            final int row = i;
+            gbc.gridy = row + 1;
+            gbc.gridx = 0;
+            JLabel seatRowLabel = new JLabel(seatRows[row][0]);
+            gbc.insets = new Insets(10, 10, 10, 10);
+            add(seatRowLabel, gbc);
 
-            JLabel seatRowLabel = new JLabel(seatRows[i][0]); // ชื่อแถว
-            gbc.insets = new Insets(10, 10, 10, 10); // เพิ่มช่องว่างรอบ ๆ ปุ่ม
-            add(seatRowLabel, gbc); // เพิ่มชื่อแถว
-
-            // เพิ่มประเภทที่นั่ง (ถ้ามี)
-            if (seatRows[i][0].equals("A") || seatRows[i][0].equals("C") || seatRows[i][0].equals("E")) {
-                JLabel seatTypeLabel = new JLabel("(" + seatRows[i][1] + ")"); // ประเภทที่นั่ง
+            if (seatRows[row][0].equals("A") || seatRows[row][0].equals("C") || seatRows[row][0].equals("E")) {
+                JLabel seatTypeLabel = new JLabel("(" + seatRows[row][1] + ")");
                 gbc.gridx = 1;
-                add(seatTypeLabel, gbc); // เพิ่มประเภทที่นั่ง
+                add(seatTypeLabel, gbc);
             } else {
                 gbc.gridx = 1;
-                add(new JLabel(" "), gbc); // ใส่ label ว่างถ้าไม่มีประเภทที่นั่ง
+                add(new JLabel(" "), gbc);
             }
 
-            // เพิ่มปุ่มที่นั่ง
             for (int j = 0; j < 5; j++) {
-                gbc.gridx = j + 2; // เริ่มที่คอลัมน์ที่ 2
-
-                String seatName = seatRows[i][0] + (1+j); // กำหนดชื่อปุ่มที่นั่ง เช่น E5, E4, ...
-                JButton seatButton = new JButton(seatName);
-                seatButton.setPreferredSize(new Dimension(50, 30)); // กำหนดขนาดปุ่ม
-                seatButtons[i][j] = seatButton; // เก็บปุ่มที่นั่งใน array
+                gbc.gridx = j + 2;
+                final String seatName = seatRows[row][0] + (1 + j);
+                final JButton seatButton = new JButton(seatName);
+                seatButton.setPreferredSize(new Dimension(50, 30));
+                seatButtons[row][j] = seatButton;
 
                 seatButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (selectedSeats.contains(seatName)) { // ถ้าเลือกแล้ว
-                            selectedSeats.remove(seatName); // ยกเลิกการเลือก
-                            seatButton.setEnabled(true); // เปิดปุ่มที่นั่ง
+                        int seatPrice = getSeatPrice(seatRows[row][0]); // Get the price of the seat
+
+                        if (selectedSeats.contains(seatName)) {
+                            selectedSeats.remove(seatName);
+                            seatButton.setEnabled(true);
+                            totalPrice -= seatPrice; // Subtract the price when deselecting
                             JOptionPane.showMessageDialog(SeatSelection.this,
                                     "Seat " + seatName + " has been deselected",
                                     "Seat Selection",
                                     JOptionPane.INFORMATION_MESSAGE);
-                        } else if (selectedSeats.size() < 5) { // จำกัดให้เลือกได้สูงสุด 3 ที่นั่ง
-                            selectedSeats.add(seatName); // เลือกที่นั่ง
-                            seatButton.setEnabled(false); // ปิดปุ่มที่นั่ง
+                        } else if (selectedSeats.size() < 5) {
+                            selectedSeats.add(seatName);
+                            seatButton.setEnabled(false);
+                            totalPrice += seatPrice; // Add the price when selecting
                             JOptionPane.showMessageDialog(SeatSelection.this,
                                     "SEAT " + seatName + " SELECTED",
                                     "Seat Selection",
@@ -77,14 +91,84 @@ public class SeatSelection extends JFrame {
                                     "Limit Exceeded",
                                     JOptionPane.WARNING_MESSAGE);
                         }
+                        updateSelectedSeatLabel();
+                        updateTotalPriceLabel();
                     }
                 });
 
-                add(seatButton, gbc); // เพิ่มปุ่มที่นั่งในหน้าต่าง
+                add(seatButton, gbc);
             }
         }
 
-        setVisible(true); // ให้หน้าต่างมองเห็นได้
+        // SELECTED SEAT
+        gbc.gridy = seatRows.length + 1;
+        gbc.gridx = 0;
+        gbc.gridwidth = 3;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(20, 10, 5, 10);
+        selectedSeatLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        add(selectedSeatLabel, gbc);
+
+        //  (under SELECTED SEAT)
+        gbc.gridy = seatRows.length + 2;
+        add(selectedSeatListLabel, gbc);
+
+        // TOTAL PRICE
+        gbc.gridy = seatRows.length + 1;
+        gbc.gridx = 5;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(20, 10, 5, 10);
+        totalPriceLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        add(totalPriceLabel, gbc);
+
+        // (under TOTAL PRICE)
+        gbc.gridy = seatRows.length + 2;
+        gbc.gridx = 5;
+        add(totalPriceValueLabel, gbc);
+
+        // Create "BUY NOW" button
+        JButton buyNowButton = new JButton("BUY NOW");
+        gbc.gridy = seatRows.length + 3;
+        gbc.gridx = 0;
+        gbc.gridwidth = 7;
+        gbc.insets = new Insets(20, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(buyNowButton, gbc);
+
+        setVisible(true);
+    }
+
+    // Price of the seat based on the row
+    private int getSeatPrice(String row) {
+        switch (row) {
+            case "A":
+                return 500; // Honeymoon
+            case "B":
+                return 300; // Premium
+            case "C":
+                return 300; // Premium
+            case "D":
+                return 220; // Standard
+            case "E":
+                return 220; // Standard
+            default:
+                return 220;
+        }
+    }
+
+    // the selected seats method
+    private void updateSelectedSeatLabel() {
+        StringBuilder seatText = new StringBuilder();
+        for (String seat : selectedSeats) {
+            seatText.append(seat).append(" ");
+        }
+        selectedSeatListLabel.setText(seatText.toString().trim());
+    }
+
+    // update the total price method
+    private void updateTotalPriceLabel() {
+        totalPriceValueLabel.setText(totalPrice + " THB");
     }
 
     public static void main(String[] args) {
@@ -93,6 +177,6 @@ public class SeatSelection extends JFrame {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        new SeatSelection(); // เรียกคลาส SeatSelection เพื่อสร้างหน้าต่างที่นั่ง
+        new SeatSelection();
     }
 }
