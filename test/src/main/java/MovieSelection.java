@@ -89,7 +89,7 @@ public class MovieSelection implements MouseListener, ActionListener, WindowList
         for( MoviePanel moviePanels : moviePanels){
             if (e.getSource().equals(moviePanels)){
                 System.out.println("movieID:"+moviePanels.getSelectedMovie().getMovieInfo().get("movieID"));
-                //new ShowtimeUI(moviePanels.getSelectedMovie())
+                new ShowtimeGUI(moviePanels.getSelectedMovie()).setVisible(true);
             }
         }
     }
