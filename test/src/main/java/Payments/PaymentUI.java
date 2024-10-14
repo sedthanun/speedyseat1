@@ -5,19 +5,22 @@ package Payments;
  */
 
 
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Cursor;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
+import javax.swing.*;
+import Payments.onlinePaymentPanel;
+
 import com.formdev.flatlaf.themes.*;
 
 /**
  *
  * @author USER
  */
-public class PaymentUI extends javax.swing.JFrame {
+public class PaymentUI extends JFrame {
 
     /**
      * Creates new form PaymentUI
@@ -39,7 +42,7 @@ public class PaymentUI extends javax.swing.JFrame {
         mainPanel.add(onlinePaymentPanel, "onlinePaymentPanel");
         mainPanel.add(payAtCounterPanel, "payAtCounterPanel");
 
-        methodPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
+        methodPanel.add(mainPanel, BorderLayout.CENTER);
 
         qrCode.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         onlineBanking.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -58,115 +61,116 @@ public class PaymentUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        jPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel = new JPanel();
+        jPanel1 = new JPanel();
         roundedPanel1 = new RoundedPanel();
-        jLabel1 = new javax.swing.JLabel();
-        dateShowtime = new javax.swing.JLabel();
-        movieName = new javax.swing.JLabel();
-        movieGenre = new javax.swing.JLabel();
-        runtime = new javax.swing.JLabel();
-        theatre = new javax.swing.JLabel();
-        sound = new javax.swing.JLabel();
-        subtitle = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        seat = new javax.swing.JLabel();
-        price = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new JLabel();
+        dateShowtime = new JLabel();
+        movieName = new JLabel();
+        movieGenre = new JLabel();
+        runtime = new JLabel();
+        theatre = new JLabel();
+        sound = new JLabel();
+        subtitle = new JLabel();
+        jLabel3 = new JLabel();
+        seat = new JLabel();
+        price = new JLabel();
+        jLabel4 = new JLabel();
+        jLabel5 = new JLabel();
         roundedPanel2 = new RoundedPanel();
-        qrCode = new javax.swing.JLabel();
-        onlineBanking = new javax.swing.JLabel();
-        payAtCounter = new javax.swing.JLabel();
+        qrCode = new JLabel();
+        onlineBanking = new JLabel();
+        payAtCounter = new JLabel();
         methodPanel = new RoundedPanel();
         roundedPanel3 = new RoundedPanel();
         roundedPanel4 = new RoundedPanel();
+        pay = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 //        jPanel1.setBackground(new java.awt.Color(30, 30, 30));
 
-        roundedPanel1.setBackground(new java.awt.Color(35, 35, 35));
-        roundedPanel1.setPreferredSize(new java.awt.Dimension(1162, 327));
+        roundedPanel1.setBackground(new Color(35, 35, 35));
+        roundedPanel1.setPreferredSize(new Dimension(1162, 327));
 
         URL imgURL = getClass().getResource("/Icon/Test_Poster.jpg");
         if (imgURL != null) {
-            jLabel1.setIcon(new javax.swing.ImageIcon(imgURL));
+            jLabel1.setIcon(new ImageIcon(imgURL));
         } else {
             System.err.println("Image not found: " + "/Icon/Test_Poster.jpg");
         }
 
         try {
-            jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Test_Poster.jpg")));
+            jLabel1.setIcon(new ImageIcon(getClass().getResource("/Icon/Test_Poster.jpg")));
         } catch (NullPointerException e) {
             System.err.println("Image not found: " + e.getMessage());
         }
 
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Test_Poster.jpg")));// C:\Users\USER\Desktop\ISAD\speedyseat1\test\src\main\Icon
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("/Icon/Test_Poster.jpg")));// C:\Users\USER\Desktop\ISAD\speedyseat1\test\src\main\Icon
         jLabel1.setText("jLabel1");
 
-        dateShowtime.setFont(new java.awt.Font("Segue UI", 0, 14)); // NOI18N
-        dateShowtime.setForeground(new java.awt.Color(153, 204, 255));
+        dateShowtime.setFont(new Font("Segue UI", 0, 14)); // NOI18N
+        dateShowtime.setForeground(new Color(153, 204, 255));
         dateShowtime.setText("17 October 2024   |  18:00");
 
-        movieName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        movieName.setForeground(new java.awt.Color(255, 255, 255));
+        movieName.setFont(new Font("Segoe UI", 1, 24)); // NOI18N
+        movieName.setForeground(new Color(255, 255, 255));
         movieName.setText("Look Back");
 
-        movieGenre.setBackground(new java.awt.Color(255, 255, 255));
-        movieGenre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        movieGenre.setForeground(new java.awt.Color(255, 255, 255));
+        movieGenre.setBackground(new Color(255, 255, 255));
+        movieGenre.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
+        movieGenre.setForeground(new Color(255, 255, 255));
         movieGenre.setText("Action, Drama, Romance");
 
-        runtime.setForeground(new java.awt.Color(255, 255, 255));
+        runtime.setForeground(new Color(255, 255, 255));
         runtime.setText("60 min");
 
-        theatre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        theatre.setForeground(new java.awt.Color(255, 255, 255));
+        theatre.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
+        theatre.setForeground(new Color(255, 255, 255));
         theatre.setText("Theatre 7");
 
-        sound.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        sound.setForeground(new java.awt.Color(255, 255, 255));
-        sound.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/sound.png"))); // NOI18N
+        sound.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
+        sound.setForeground(new Color(255, 255, 255));
+        sound.setIcon(new ImageIcon(getClass().getResource("/Icon/sound.png"))); // NOI18N
         sound.setText("ENG");
 
-        subtitle.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        subtitle.setForeground(new java.awt.Color(255, 255, 255));
-        subtitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/subtitle.png"))); // NOI18N
+        subtitle.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
+        subtitle.setForeground(new Color(255, 255, 255));
+        subtitle.setIcon(new ImageIcon(getClass().getResource("/Icon/subtitle.png"))); // NOI18N
         subtitle.setText("TH");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("|");
 
-        seat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        seat.setForeground(new java.awt.Color(255, 255, 255));
-        seat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/seat.png"))); // NOI18N
+        seat.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
+        seat.setForeground(new Color(255, 255, 255));
+        seat.setIcon(new ImageIcon(getClass().getResource("/Icon/seat.png"))); // NOI18N
         seat.setText("M7");
 
-        price.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        price.setForeground(new java.awt.Color(255, 255, 255));
+        price.setFont(new Font("Segoe UI", 1, 14)); // NOI18N
+        price.setForeground(new Color(255, 255, 255));
         price.setText("Price: 160 ฿");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("|");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/display.png"))); // NOI18N
+        jLabel5.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setForeground(new Color(255, 255, 255));
+        jLabel5.setIcon(new ImageIcon(getClass().getResource("/Icon/display.png"))); // NOI18N
         jLabel5.setText("IMAX");
 
-        javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
+        GroupLayout roundedPanel1Layout = new GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
         roundedPanel1Layout.setHorizontalGroup(
-                roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                roundedPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(roundedPanel1Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
                                 .addGap(34, 34, 34)
-                                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(roundedPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(roundedPanel1Layout.createSequentialGroup()
-                                                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(roundedPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(dateShowtime)
                                                         .addComponent(movieName)
                                                         .addComponent(movieGenre)
@@ -174,7 +178,7 @@ public class PaymentUI extends javax.swing.JFrame {
                                                         .addComponent(theatre)
                                                         .addGroup(roundedPanel1Layout.createSequentialGroup()
                                                                 .addComponent(sound)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addComponent(jLabel3)
                                                                 .addGap(18, 18, 18)
                                                                 .addComponent(subtitle)
@@ -185,15 +189,15 @@ public class PaymentUI extends javax.swing.JFrame {
                                                 .addContainerGap(229, Short.MAX_VALUE))
                                         .addGroup(roundedPanel1Layout.createSequentialGroup()
                                                 .addComponent(seat)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(price)
                                                 .addGap(74, 74, 74))))
         );
         roundedPanel1Layout.setVerticalGroup(
-                roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                roundedPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(roundedPanel1Layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
-                                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(roundedPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel1)
                                         .addGroup(roundedPanel1Layout.createSequentialGroup()
                                                 .addGap(18, 18, 18)
@@ -207,172 +211,186 @@ public class PaymentUI extends javax.swing.JFrame {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(theatre)
                                                 .addGap(18, 18, 18)
-                                                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addGroup(roundedPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                         .addComponent(sound)
                                                         .addComponent(subtitle)
                                                         .addComponent(jLabel3)
                                                         .addComponent(jLabel4)
                                                         .addComponent(jLabel5))
                                                 .addGap(18, 18, 18)
-                                                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addGroup(roundedPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                         .addComponent(seat)
                                                         .addComponent(price))))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        roundedPanel2.setBackground(new java.awt.Color(35, 35, 35));
-        roundedPanel2.setPreferredSize(new java.awt.Dimension(200, 200));
+        roundedPanel2.setBackground(new Color(35, 35, 35));
+        roundedPanel2.setPreferredSize(new Dimension(200, 200));
 
-        qrCode.setBackground(new java.awt.Color(102, 102, 102));
-        qrCode.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        qrCode.setForeground(new java.awt.Color(255, 255, 255));
-        qrCode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/qr-code.png"))); // NOI18N
+        qrCode.setBackground(new Color(102, 102, 102));
+        qrCode.setFont(new Font("Segoe UI", 0, 24)); // NOI18N
+        qrCode.setForeground(new Color(255, 255, 255));
+        qrCode.setIcon(new ImageIcon(getClass().getResource("/Icon/qr-code.png"))); // NOI18N
         qrCode.setText("QR Code");
         qrCode.setIconTextGap(30);
-        qrCode.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        qrCode.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 qrCodeMouseClicked(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 qrCodeMouseExited(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+            public void mousePressed(MouseEvent evt) {
                 qrCodeMousePressed(evt);
             }
         });
 
-        onlineBanking.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        onlineBanking.setForeground(new java.awt.Color(255, 255, 255));
-        onlineBanking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/banking.png"))); // NOI18N
+        onlineBanking.setFont(new Font("Segoe UI", 0, 24)); // NOI18N
+        onlineBanking.setForeground(new Color(255, 255, 255));
+        onlineBanking.setIcon(new ImageIcon(getClass().getResource("/Icon/banking.png"))); // NOI18N
         onlineBanking.setText("Online Banking");
         onlineBanking.setIconTextGap(30);
-        onlineBanking.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        onlineBanking.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 onlineBankingMouseClicked(evt);
             }
         });
 
-        payAtCounter.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        payAtCounter.setForeground(new java.awt.Color(255, 255, 255));
-        payAtCounter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/counter.png"))); // NOI18N
+        payAtCounter.setFont(new Font("Segoe UI", 0, 24)); // NOI18N
+        payAtCounter.setForeground(new Color(255, 255, 255));
+        payAtCounter.setIcon(new ImageIcon(getClass().getResource("/Icon/counter.png"))); // NOI18N
         payAtCounter.setText("Pay at Counter");
         payAtCounter.setIconTextGap(30);
-        payAtCounter.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        payAtCounter.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
                 payAtCounterMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
+        GroupLayout roundedPanel2Layout = new GroupLayout(roundedPanel2);
         roundedPanel2.setLayout(roundedPanel2Layout);
         roundedPanel2Layout.setHorizontalGroup(
-                roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel2Layout.createSequentialGroup()
+                roundedPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, roundedPanel2Layout.createSequentialGroup()
                                 .addContainerGap(57, Short.MAX_VALUE)
-                                .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(onlineBanking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(qrCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(payAtCounter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(roundedPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(onlineBanking, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(qrCode, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(payAtCounter, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 307, GroupLayout.PREFERRED_SIZE))
                                 .addGap(54, 54, 54))
         );
         roundedPanel2Layout.setVerticalGroup(
-                roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                roundedPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(roundedPanel2Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
                                 .addComponent(qrCode)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(onlineBanking)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(payAtCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(payAtCounter, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        methodPanel.setBackground(new java.awt.Color(35, 35, 35));
-        methodPanel.setMinimumSize(new java.awt.Dimension(300, 700));
-        methodPanel.setPreferredSize(new java.awt.Dimension(300, 700));
-        methodPanel.setLayout(new java.awt.BorderLayout());
+        methodPanel.setBackground(new Color(35, 35, 35));
+        methodPanel.setMinimumSize(new Dimension(300, 700));
+        methodPanel.setPreferredSize(new Dimension(300, 700));
+        methodPanel.setLayout(new BorderLayout());
 
-        roundedPanel3.setBackground(new java.awt.Color(35, 35, 35));
+        roundedPanel3.setBackground(new Color(35, 35, 35));
 
-        javax.swing.GroupLayout roundedPanel3Layout = new javax.swing.GroupLayout(roundedPanel3);
+        GroupLayout roundedPanel3Layout = new GroupLayout(roundedPanel3);
         roundedPanel3.setLayout(roundedPanel3Layout);
         roundedPanel3Layout.setHorizontalGroup(
-                roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                roundedPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 200, Short.MAX_VALUE)
         );
         roundedPanel3Layout.setVerticalGroup(
-                roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                roundedPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 363, Short.MAX_VALUE)
         );
 
-        methodPanel.add(roundedPanel3, java.awt.BorderLayout.LINE_START);
+        methodPanel.add(roundedPanel3, BorderLayout.LINE_START);
 
-        roundedPanel4.setBackground(new java.awt.Color(35, 35, 35));
+        roundedPanel4.setBackground(new Color(35, 35, 35));
 
-        javax.swing.GroupLayout roundedPanel4Layout = new javax.swing.GroupLayout(roundedPanel4);
+        pay.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
+        pay.setText("Pay");
+        pay.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                payActionPerformed(evt);
+            }
+        });
+
+        GroupLayout roundedPanel4Layout = new GroupLayout(roundedPanel4);
         roundedPanel4.setLayout(roundedPanel4Layout);
         roundedPanel4Layout.setHorizontalGroup(
-                roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 200, Short.MAX_VALUE)
+                roundedPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(roundedPanel4Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(pay)
+                                .addContainerGap(112, Short.MAX_VALUE))
         );
         roundedPanel4Layout.setVerticalGroup(
-                roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 363, Short.MAX_VALUE)
+                roundedPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(roundedPanel4Layout.createSequentialGroup()
+                                .addGap(158, 158, 158)
+                                .addComponent(pay)
+                                .addContainerGap(178, Short.MAX_VALUE))
         );
 
-        methodPanel.add(roundedPanel4, java.awt.BorderLayout.LINE_END);
+        methodPanel.add(roundedPanel4, BorderLayout.LINE_END);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(64, 64, 64)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(methodPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(roundedPanel1, GroupLayout.PREFERRED_SIZE, 711, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(roundedPanel2, GroupLayout.PREFERRED_SIZE, 418, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(methodPanel, GroupLayout.PREFERRED_SIZE, 1147, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(96, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(34, 34, 34)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                                        .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(roundedPanel1, GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                                        .addComponent(roundedPanel2, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(methodPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 363, Short.MAX_VALUE)
+                                .addComponent(methodPanel, GroupLayout.PREFERRED_SIZE, 363, Short.MAX_VALUE)
                                 .addGap(32, 32, 32))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>
 
-    private void qrCodeMousePressed(java.awt.event.MouseEvent evt) {
+    private void qrCodeMousePressed(MouseEvent evt) {
         // TODO add your handling code here:
 
     }
 
-    private void qrCodeMouseExited(java.awt.event.MouseEvent evt) {
+    private void qrCodeMouseExited(MouseEvent evt) {
         // TODO add your handling code here:
 
     }
 
-    private void qrCodeMouseClicked(java.awt.event.MouseEvent evt) {
+    private void qrCodeMouseClicked(MouseEvent evt) {
         // TODO add your handling code here:
         qrCode.setOpaque(true);
         qrCode.setBackground(new Color(65, 65, 65));
@@ -386,7 +404,7 @@ public class PaymentUI extends javax.swing.JFrame {
         cardLayout.show(mainPanel, "qrCodePanel");
     }
 
-    private void onlineBankingMouseClicked(java.awt.event.MouseEvent evt) {
+    private void onlineBankingMouseClicked(MouseEvent evt) {
         // TODO add your handling code here:
         onlineBanking.setOpaque(true);
         onlineBanking.setBackground(new Color(65,65,65));
@@ -400,7 +418,7 @@ public class PaymentUI extends javax.swing.JFrame {
         cardLayout.show(mainPanel, "onlinePaymentPanel");
     }
 
-    private void payAtCounterMouseClicked(java.awt.event.MouseEvent evt) {
+    private void payAtCounterMouseClicked(MouseEvent evt) {
         // TODO add your handling code here:
         payAtCounter.setOpaque(true);
         payAtCounter.setBackground(new Color(65,65,65));
@@ -412,6 +430,20 @@ public class PaymentUI extends javax.swing.JFrame {
         onlineBanking.setBackground(new Color(35, 35, 35));
 
         cardLayout.show(mainPanel, "payAtCounterPanel");
+    }
+
+    private void payActionPerformed(ActionEvent evt) {
+        // ดึงข้อความจาก JPasswordField
+        char[] password = onlinePaymentPanel.getpassword();
+
+        // ตรวจสอบว่ารหัสผ่านมีจำนวนไม่เท่ากับ 10 ตัวอักษร
+        if (password.length >= 1 && password.length != 10) {
+            // แสดงแจ้งเตือนว่าต้องใช้รหัสผ่าน 10 ตัวอักษร
+            JOptionPane.showMessageDialog(this, "Wrong card number", "Payment failed", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // โค้ดอื่น ๆ สำหรับการดำเนินการหลังจากป้อนรหัสผ่านถูกต้อง
+            // ...
+        }
     }
 
     /**
@@ -431,7 +463,7 @@ public class PaymentUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new PaymentUI().setVisible(true);
@@ -440,33 +472,34 @@ public class PaymentUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
-    private javax.swing.JLabel dateShowtime;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel price;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel;
-    private javax.swing.JPanel jPanel1;
+    private JLabel dateShowtime;
+    private JLabel jLabel1;
+    private JLabel price;
+    private JLabel jLabel3;
+    private JLabel jLabel4;
+    private JLabel jLabel5;
+    private JPanel jPanel;
+    private JPanel jPanel1;
     private RoundedPanel methodPanel;
-    private javax.swing.JLabel movieGenre;
-    private javax.swing.JLabel movieName;
-    private javax.swing.JLabel onlineBanking;
-    private javax.swing.JLabel payAtCounter;
-    private javax.swing.JLabel qrCode;
+    private JLabel movieGenre;
+    private JLabel movieName;
+    private JLabel onlineBanking;
+    private JLabel payAtCounter;
+    private JLabel qrCode;
     private RoundedPanel roundedPanel1;
     private RoundedPanel roundedPanel2;
     private RoundedPanel roundedPanel3;
     private RoundedPanel roundedPanel4;
-    private javax.swing.JLabel runtime;
-    private javax.swing.JLabel seat;
-    private javax.swing.JLabel sound;
-    private javax.swing.JLabel subtitle;
-    private javax.swing.JLabel theatre;
+    private JLabel runtime;
+    private JLabel seat;
+    private JLabel sound;
+    private JLabel subtitle;
+    private JLabel theatre;
     // End of variables declaration
     private CardLayout cardLayout;
     private JPanel qrCodePanel;
-    private JPanel onlinePaymentPanel;
+    public onlinePaymentPanel onlinePaymentPanel;
     private JPanel payAtCounterPanel;
     private JPanel mainPanel;
+    private JButton pay;
 }

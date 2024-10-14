@@ -16,6 +16,8 @@ public class onlinePaymentPanel extends javax.swing.JPanel {
      */
     public onlinePaymentPanel() {
         initComponents();
+
+        payButton.setVisible(false);
     }
 
     /**
@@ -73,8 +75,8 @@ public class onlinePaymentPanel extends javax.swing.JPanel {
 
         payButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         payButton.setForeground(new java.awt.Color(255, 255, 255));
-        payButton.setText("Pay: 160 ฿");
-        payButton.setActionCommand("Pay: 160 ฿");
+        payButton.setText("Pay");
+        payButton.setActionCommand("Pay");
         payButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 payButtonActionPerformed(evt);
@@ -141,6 +143,12 @@ public class onlinePaymentPanel extends javax.swing.JPanel {
 
     private void expiryDateActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+    }
+
+    public char[] getpassword() {
+        char[] password = cardNumber.getPassword();
+
+        return password;
     }
 
 
