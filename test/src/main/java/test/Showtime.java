@@ -5,6 +5,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.sql.*;
+import Database.*;
 
 public class Showtime extends JFrame {
     private JLabel showtimeLabel;
@@ -30,11 +37,28 @@ public class Showtime extends JFrame {
         JLabel posterLabel = new JLabel();
         posterLabel.setPreferredSize(new Dimension(500, 600));  // Set a larger size
 
+        //ดึงค่าจาก dtb
+        try {
+            ResultSet rs = DBquery.getInstance().getSelect("SELECT * FROM Movie WHERE movie_id = 1;");
+            while (rs.next()) {
+                byte[] ii = rs.getBytes("movie_poster"); // SELECT
+                posterLabel.setIcon(new ImageIcon(ByteToImage(ii)));
+            }
+            DBquery.getInstance().disconnect(); //อย่าลืม disconnectด้วยครับ
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         // Load image for poster
         ImageIcon posterImage = new ImageIcon("C:/Users/pleum/Downloads/tee Yod.jpg"); // poster path
         Image scaledImage = posterImage.getImage().getScaledInstance(500, 600, Image.SCALE_SMOOTH);
-        posterLabel.setIcon(new ImageIcon(scaledImage));  // Set the scaled image as the poster
         posterContainer.add(posterLabel, BorderLayout.CENTER);
+
+
+
+
+
 
 //        gbc.gridx = 0;
 //        gbc.gridy = 0;
@@ -148,6 +172,17 @@ public class Showtime extends JFrame {
             buttons.add(button);
         }
         return buttons;
+    }
+    public BufferedImage ByteToImage(byte[] b){
+        try {
+
+            ByteArrayInputStream bis = new ByteArrayInputStream(b);
+            BufferedImage image = ImageIO.read(bis);
+            return image;
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String[] args) {
