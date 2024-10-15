@@ -137,6 +137,7 @@ public class SeatSelection extends JFrame {
         gbc.insets = new Insets(20, 10, 10, 10);
         gbc.anchor = GridBagConstraints.EAST;
 
+
         buyNowButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,6 +155,40 @@ public class SeatSelection extends JFrame {
         });
 
         add(buyNowButton, gbc);
+
+        // CREATE "RESET" BUTTON
+        JButton ResetButton = new JButton("RESET");
+        gbc.gridy = seatRows.length + 3;
+        gbc.gridx = 0;
+        gbc.gridwidth = 7;
+        gbc.insets = new Insets(20, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.WEST;
+
+        ResetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Clear the selected seats list
+                selectedSeats.clear();
+
+                // Reset the state of all seat buttons
+                for (int i = 0; i < seatButtons.length; i++) {
+                    for (int j = 0; j < seatButtons[i].length; j++) {
+                        seatButtons[i][j].setEnabled(true);
+                    }
+                }
+
+                // Reset total price
+                totalPrice = 0;
+
+                // Update the labels
+                updateSelectedSeatLabel();
+                updateTotalPriceLabel();
+            }
+        });
+
+        add(ResetButton, gbc);
+        add(ResetButton, gbc);
+
 
 
         setVisible(true);
