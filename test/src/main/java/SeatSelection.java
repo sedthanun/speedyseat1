@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+
+import Payments.PaymentUI;
 import com.formdev.flatlaf.themes.*;
 
 public class SeatSelection extends JFrame {
@@ -133,8 +135,26 @@ public class SeatSelection extends JFrame {
         gbc.gridx = 0;
         gbc.gridwidth = 7;
         gbc.insets = new Insets(20, 10, 10, 10);
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.EAST;
+
+        buyNowButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(selectedSeats.isEmpty()){
+                    JOptionPane.showMessageDialog(SeatSelection.this,
+                            "YOU HAVE TO SELECTED THE SEAT!",
+                            "Limit Exceeded",
+                            JOptionPane.WARNING_MESSAGE);
+                }else{
+                    new PaymentUI().setVisible(true);
+                    System.out.println("New Payment UI");
+                }
+
+            }
+        });
+
         add(buyNowButton, gbc);
+
 
         setVisible(true);
     }
