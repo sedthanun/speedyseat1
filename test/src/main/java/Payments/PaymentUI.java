@@ -13,13 +13,14 @@ import java.awt.event.MouseEvent;
 import java.net.URL;
 import javax.swing.*;
 import com.formdev.flatlaf.themes.*;
+import test.Showtime;
 
 /**
  *
  * @author USER
  */
 
-public class PaymentUI extends JFrame {
+public class PaymentUI extends JFrame {  // for rollback
 
     /**
      * Creates new form PaymentUI
@@ -59,7 +60,7 @@ public class PaymentUI extends JFrame {
         setIconImage(icon.getImage());
     }
 
-//    public PaymentUI(Movie movie) {
+//    public PaymentUI(Showtime showtime,Movie movie,SeatSeletion selectedSeats,SeatSeletion totalPrice) {
 //        this();
 //
 //        byte[] moviePos = (byte[]) movie.getMovieInfo().get("moviePoster");
