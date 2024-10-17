@@ -3,6 +3,12 @@ package Payments;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 public class RoundedPanel extends JPanel {
 
