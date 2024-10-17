@@ -202,7 +202,7 @@ public class ShowtimeGUI extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     showtimeLabel.setText("Showtime: " + ab.getShowtimeInfo().get("showtimeDateTime"));
-//                    new SeatSelection(ab);
+                    new SeatSelection(ab, movie);
                 }
             });
             buttons.add(button);

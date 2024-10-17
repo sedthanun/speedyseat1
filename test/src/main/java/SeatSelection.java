@@ -15,7 +15,7 @@ public class SeatSelection extends JFrame {
     private final JLabel totalPriceValueLabel = new JLabel("0 THB");
     private int totalPrice = 0;
 
-    public SeatSelection() {
+    public SeatSelection(Showtime showtime, Movie movie) {
         setTitle("Seat Selection");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(500, 500);
@@ -106,7 +106,7 @@ public class SeatSelection extends JFrame {
                             "Limit Exceeded",
                             JOptionPane.WARNING_MESSAGE);
                 } else {
-                    new PaymentUI().setVisible(true);
+                    //new PaymentUI(showtime, movie, selectedSeats, totalPrice).setVisible(true);
                     System.out.println("New Payment UI");
                 }
             }
@@ -216,6 +216,6 @@ public class SeatSelection extends JFrame {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        new SeatSelection();
+        //new SeatSelection(Showtime showtime, Movie movie);
     }
 }
