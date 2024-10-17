@@ -108,6 +108,9 @@ public class ShowtimeGUI extends JFrame {
 
 
 
+
+
+
         // Add theater buttons
         JLabel showLabel = new JLabel("Select Theater:", SwingConstants.CENTER);
         showLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
@@ -186,7 +189,6 @@ public class ShowtimeGUI extends JFrame {
     private ArrayList<JButton> createShowtimeButtons(Movie movie,String num) {
         ArrayList<JButton> buttons = new ArrayList<>();
         List<Showtime> showtime = movie.getShowtimeList();
-        List<String> showtimeList = new ArrayList<>();
         List<Showtime> sepShowtime = new ArrayList<>();
 
         for(Showtime times : showtime){
@@ -202,7 +204,7 @@ public class ShowtimeGUI extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     showtimeLabel.setText("Showtime: " + ab.getShowtimeInfo().get("showtimeDateTime"));
-                    new SeatSelection(ab, movie);
+                    new SeatSelection(ab,movie);
                 }
             });
             buttons.add(button);
