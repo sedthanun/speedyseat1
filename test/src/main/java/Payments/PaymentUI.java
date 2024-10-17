@@ -20,7 +20,7 @@ import test.Showtime;
  * @author USER
  */
 
-public class PaymentUI extends JFrame {  // for rollback
+public class PaymentUI extends JFrame {  // for rollback 2
 
     /**
      * Creates new form PaymentUI
