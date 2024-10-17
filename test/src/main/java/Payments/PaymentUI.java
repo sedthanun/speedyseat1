@@ -12,8 +12,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import javax.swing.*;
-import Payments.onlinePaymentPanel;
-
 import com.formdev.flatlaf.themes.*;
 
 /**
@@ -30,7 +28,7 @@ public class PaymentUI extends JFrame {
     public PaymentUI() {
         initComponents();
 
-        setTitle("Speedy Seat");
+        setTitle("SpeedySeat");
 
         qrCodePanel = new qrCodePanel();
         onlinePaymentPanel = new onlinePaymentPanel();
@@ -56,7 +54,28 @@ public class PaymentUI extends JFrame {
 
         setLocationRelativeTo(null);
         setResizable(false);
+
+        ImageIcon icon = new ImageIcon(getClass().getResource("/Icon/Icon_App_Test.png")); // เปลี่ยน path_to_your_icon.png เป็นที่อยู่ของไอคอน
+        setIconImage(icon.getImage());
     }
+
+//    public PaymentUI(Movie movie) {
+//        this();
+//
+//        byte[] moviePos = (byte[]) movie.getMovieInfo().get("moviePoster");
+//        jLabel1.setIcon(new ImageIcon(moviePos));
+//
+//        dateShowtime.setText("   |  ");
+//        movieName.setText(movie.getMovieInfo().get("movieName"));
+//        movieGenre.setText(movie.getMovieInfo().get("movieGenre"));
+//        runtime.setText(movie.getMovieInfo().get("movieRuntime"));
+//        theatre.setText(movie.getMovieInfo().get("movieTheatre"));
+//        sound.setText(movie.getMovieInfo().get("movieSound"));
+//        subtitle.setText(movie.getMovieInfo().get("movieSubtitle"));
+//        jLabel5.setText(movie.getMovieInfo().get("movieSceenformat"));
+//        seat.setText(movie.getMovieInfo().get("seat"));
+//        price.setText(movie.getMovieInfo().get("moviePrice"));
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -470,6 +489,7 @@ public class PaymentUI extends JFrame {
     /**
      * @param args the command line arguments
      */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -517,6 +537,7 @@ public class PaymentUI extends JFrame {
     private JLabel subtitle;
     private JLabel theatre;
     // End of variables declaration
+
     private CardLayout cardLayout;
     private JPanel qrCodePanel;
     private onlinePaymentPanel onlinePaymentPanel;

@@ -62,7 +62,11 @@ public class ShowtimeGUI extends JFrame {
         JPanel under = new JPanel(new GridLayout(2, 1, 3, 3));
         JLabel titleLabel = new JLabel("Title: " + movie.getMovieInfo().get("movieName"));
         JLabel genreLabel = new JLabel("Genre: " + movie.getMovieInfo().get("movieGenre"));
-        JLabel desLabel = new JLabel("Description: " + movie.getMovieInfo().get("movieDescription"));
+        JTextArea desLabel = new JTextArea("Description: " + movie.getMovieInfo().get("movieDescription"));
+        desLabel.setFocusable(false);
+        desLabel.setLineWrap(true);
+        desLabel.setWrapStyleWord(true);
+        desLabel.setEditable(false);
 
         JLabel ratingLabel = new JLabel("Rating: " + movie.getMovieInfo().get("movieRating"));
         JLabel runtimeLabel = new JLabel("Runtime: "+movie.getMovieInfo().get("movieRuntime") + " minutes");
@@ -164,7 +168,12 @@ public class ShowtimeGUI extends JFrame {
                     showtimeLabel.setText("Showtime: None Selected");  // Reset showtime selection
                     for (JButton button : showtimeButtons) {
                         button.setFont(new Font("SansSerif", Font.PLAIN, 18));
-                        showtimePanel.add(button, gbcMiddle);
+
+                        GridBagConstraints grid1 = new GridBagConstraints();
+                        grid1.gridwidth = GridBagConstraints.REMAINDER;
+                        grid1.fill = GridBagConstraints.NONE;
+                        grid1.insets = new Insets(5, 5, 5, 5);
+                        showtimePanel.add(button, grid1);
                     }
 
                 }
@@ -192,8 +201,8 @@ public class ShowtimeGUI extends JFrame {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    showtimeLabel.setText("Showtime: " + ab);
-                    new SeatSelection();
+                    showtimeLabel.setText("Showtime: " + ab.getShowtimeInfo().get("showtimeDateTime"));
+//                    new SeatSelection(ab);
                 }
             });
             buttons.add(button);
