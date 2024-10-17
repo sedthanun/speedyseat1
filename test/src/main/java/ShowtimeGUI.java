@@ -164,7 +164,12 @@ public class ShowtimeGUI extends JFrame {
                     showtimeLabel.setText("Showtime: None Selected");  // Reset showtime selection
                     for (JButton button : showtimeButtons) {
                         button.setFont(new Font("SansSerif", Font.PLAIN, 18));
-                        showtimePanel.add(button, gbcMiddle);
+
+                        GridBagConstraints grid1 = new GridBagConstraints();
+                        grid1.gridwidth = GridBagConstraints.REMAINDER;
+                        grid1.fill = GridBagConstraints.NONE;
+                        grid1.insets = new Insets(5, 5, 5, 5);
+                        showtimePanel.add(button, grid1);
                     }
 
                 }
@@ -192,8 +197,8 @@ public class ShowtimeGUI extends JFrame {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    showtimeLabel.setText("Showtime: " + ab);
-                    new SeatSelection();
+                    showtimeLabel.setText("Showtime: " + ab.getShowtimeInfo().get("showtimeDateTime"));
+//                    new SeatSelection(ab);
                 }
             });
             buttons.add(button);
