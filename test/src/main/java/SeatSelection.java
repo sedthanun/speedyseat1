@@ -65,7 +65,7 @@ public class SeatSelection extends JFrame {
             }
 
             createSeatButtons(row, seatRows[row], gbc, showtime);
-            //System.out.println(showtime.getShowtimeInfo().get("seats"));
+            System.out.println(showtime.getShowtimeInfo().get("seats"));
         }
 
 
@@ -152,55 +152,59 @@ public class SeatSelection extends JFrame {
 
     private void createSeatButtons(int row, String[] seatRow, GridBagConstraints gbc, Showtime showtime) {
         // Get the List<Seat> from the showtime info
-        List<Seat> Allseats = (List<Seat>)(showtime.getShowtimeInfo().get("seats"));
+        List<Seat> allSeats = (List<Seat>) (showtime.getShowtimeInfo().get("seats"));
 
         int seatsPerRow = 5;  // 5 seats per row
-        int totalRows = Allseats.size() / seatsPerRow;  // Calculate based on seat count
 
         // Ensure we have enough seats for the rows
-        if (Allseats == null || Allseats.size() != totalRows * seatsPerRow) {
+        if (allSeats == null || allSeats.size() < (row + 1) * seatsPerRow) {
             throw new IllegalArgumentException("Seat info size must match the row and column structure");
         }
 
         // Reverse the row order (row 0 should be "E", row 1 should be "D", etc.)
-        String[] reversedRows = {"E", "D", "C", "B", "A"};  // This will map the rows properly
+        String[] reversedRows = {"E", "D", "C", "B", "A"};
 
-        // Iterate through each seat in the current row
+        // Calculate the index for the current row (which is actually reversed)
+        // total rows can be derived from how many seats there are
         for (int j = 0; j < seatsPerRow; j++) {
             gbc.gridx = j + 2;  // Adjust grid layout position
 
-            final int seatIndex = row * seatsPerRow + j;  // Calculate seat index in the list
-            final Seat seat = Allseats.get(seatIndex);  // Get the Seat object
+            // Calculate the correct seat index from the original seat list
+            int seatIndex = (4 - row) * seatsPerRow + j;  // Reverse the row index to match the seat's actual position
+            final Seat seat = allSeats.get(seatIndex);  // Get the Seat object
 
-            // Extract seat information from the seat's getSeatInfo() dictionary
-            Dictionary<String, Object> seatInfo = seat.getSeatInfo();
-            final String originalSeatName = (String) seatInfo.get("seatNumber");  // The original seat name (e.g., "A1", "B1", etc.)
-
-            // Adjust seat row for the reversed order (E -> 0, D -> 1, etc.)
-            final String rowIdentifier = reversedRows[row];  // Get the correct row identifier (E, D, C, B, A)
-
-            // Create the new seat name (e.g., "E1", "D2")
-            final String seatName = rowIdentifier + (j + 1);
+            // Create the new seat name (e.g., "E1", "D1")
+            final String seatName = reversedRows[row] + (j + 1);
 
             // Create the seat button with the seat name
             final JButton seatButton = new JButton(seatName);
             seatButton.setPreferredSize(new Dimension(50, 30));
-            seatButtons[row][j] = seatButton;
+            seatButtons[row][j] = seatButton;  // Assuming seatButtons is a 2D array of JButton
 
-            // Check if the seat is available
+            // Check if the seat is available and set button state accordingly
             if (!seat.getisAvailable()) {
                 seatButton.setEnabled(false);  // Disable the button if the seat is not available
             }
 
+            // Add ActionListener for seat selection
             seatButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    int seatPrice = getSeatPrice(rowIdentifier);  // Now pass the correct row (E, D, etc.)
+                    // Check if the seat is available before allowing selection
+                    if (!seat.getisAvailable()) {
+                        JOptionPane.showMessageDialog(SeatSelection.this,
+                                "Seat " + seatName + " is not available!",
+                                "Seat Selection",
+                                JOptionPane.WARNING_MESSAGE);
+                        return; // Exit if the seat is not available
+                    }
+
+                    int seatPrice = getSeatPrice(reversedRows[row]);  // Get the price for this row
 
                     // Use the correct seatName for selection
                     if (selectedSeats.contains(seatName)) {
                         selectedSeats.remove(seatName);
-                        seatButton.setEnabled(true);
+                        seatButton.setEnabled(true);  // Re-enable the button
                         totalPrice -= seatPrice;
                         JOptionPane.showMessageDialog(SeatSelection.this,
                                 "Seat " + seatName + " has been deselected",
@@ -208,7 +212,7 @@ public class SeatSelection extends JFrame {
                                 JOptionPane.INFORMATION_MESSAGE);
                     } else if (selectedSeats.size() < 5) {
                         selectedSeats.add(seatName);
-                        seatButton.setEnabled(false);
+                        seatButton.setEnabled(false); // Disable the button as it's now selected
                         totalPrice += seatPrice;
                         JOptionPane.showMessageDialog(SeatSelection.this,
                                 "SEAT " + seatName + " SELECTED",
@@ -229,6 +233,10 @@ public class SeatSelection extends JFrame {
             add(seatButton, gbc);
         }
     }
+
+
+
+
 
 
 
