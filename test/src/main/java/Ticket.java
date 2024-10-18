@@ -13,6 +13,7 @@ public class Ticket {
 //    private boolean paymentConfirm;
 
     public Ticket(Seat seat) {
+        this.seat = seat;
 //        this.paymentConfirm = false;
     }
 
@@ -29,15 +30,16 @@ public class Ticket {
     }
 
     public byte[] createQRCode(){
-        BufferedImage bImage = null;
-        try {
-            bImage = ImageIO.read(new File("/Icon/qr_code_payment.png"));
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ImageIO.write(bImage, "png", bos );
-            byte [] image = bos.toByteArray();
-            return image;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return  null;
+//        BufferedImage bImage = null;
+//        try {
+//            bImage = ImageIO.read(new File("/Icon/qr_code_payment.png"));
+//            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//            ImageIO.write(bImage, "png", bos );
+//            byte [] image = bos.toByteArray();
+//            return image;
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }
