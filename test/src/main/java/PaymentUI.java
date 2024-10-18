@@ -35,6 +35,7 @@ public class PaymentUI extends JFrame {  // for rollback 2
         public onlinePaymentPanel() {
             initComponents();
 
+            cardNumber.setEchoChar('\0');
             payButton.setVisible(false);
         }
 
@@ -436,9 +437,9 @@ public class PaymentUI extends JFrame {  // for rollback 2
 
         mainPanel = new JPanel(cardLayout);
 
-        mainPanel.add(qrCodePanel, "qrCodePanel");
-        mainPanel.add(onlinePaymentPanel, "onlinePaymentPanel");
-        mainPanel.add(payAtCounterPanel, "payAtCounterPanel");
+        mainPanel.add(qrCodePanel, "QRCode");
+        mainPanel.add(onlinePaymentPanel, "OnlineBanking");
+        mainPanel.add(payAtCounterPanel, "Cash");
 
         methodPanel.add(mainPanel, BorderLayout.CENTER);
 
@@ -448,7 +449,7 @@ public class PaymentUI extends JFrame {  // for rollback 2
 
         qrCode.setOpaque(true);
         qrCode.setBackground(new Color(65,65,65));
-        currentCard = "qrCodePanel";
+        currentCard = "QRCode";
 
         setLocationRelativeTo(null);
         setResizable(false);
@@ -493,7 +494,7 @@ public class PaymentUI extends JFrame {  // for rollback 2
         movieName.setText("" + this.movie.getMovieInfo().get("movieName"));
         movieGenre.setText("" + this.movie.getMovieInfo().get("movieGenre"));
         runtime.setText(this.movie.getMovieInfo().get("movieRuntime") + " min");
-        theatre.setText("Theatre " + ((Theatre) showtime.getShowtimeInfo().get("theatre")).getTheatreInfo().get("theatreNumber"));
+        theatre.setText("Theatre " + ((Theatre) showtime.getShowtimeInfo().get("theatre")).getTheatreInfo().get("theatreNumber") + " | " + ((Theatre) showtime.getShowtimeInfo().get("theatre")).getTheatreInfo().get("theatreBranch"));
         sound.setText("" + this.showtime.getShowtimeInfo().get("sound"));
         subtitle.setText("" + this.showtime.getShowtimeInfo().get("subtitle"));
         jLabel5.setText("" + this.showtime.getShowtimeInfo().get("screenFormat"));
@@ -851,8 +852,8 @@ public class PaymentUI extends JFrame {  // for rollback 2
         payAtCounter.setOpaque(true);
         payAtCounter.setBackground(new Color(35, 35, 35));
 
-        cardLayout.show(mainPanel, "qrCodePanel");
-        currentCard = "qrCodePanel";
+        cardLayout.show(mainPanel, "QRCode");
+        currentCard = "QRCode";
     }
 
     private void onlineBankingMouseClicked(MouseEvent evt) {
@@ -866,8 +867,8 @@ public class PaymentUI extends JFrame {  // for rollback 2
         payAtCounter.setOpaque(true);
         payAtCounter.setBackground(new Color(35, 35, 35));
 
-        cardLayout.show(mainPanel, "onlinePaymentPanel");
-        currentCard = "onlinePaymentPanel";
+        cardLayout.show(mainPanel, "OnlineBanking");
+        currentCard = "OnlineBanking";
     }
 
     private void payAtCounterMouseClicked(MouseEvent evt) {
@@ -881,8 +882,8 @@ public class PaymentUI extends JFrame {  // for rollback 2
         onlineBanking.setOpaque(true);
         onlineBanking.setBackground(new Color(35, 35, 35));
 
-        cardLayout.show(mainPanel, "payAtCounterPanel");
-        currentCard = "payAtCounterPanel";
+        cardLayout.show(mainPanel, "Cash");
+        currentCard = "Cash";
     }
 
     private void payActionPerformed(ActionEvent evt) {
@@ -890,7 +891,7 @@ public class PaymentUI extends JFrame {  // for rollback 2
         char[] password = onlinePaymentPanel.getpassword();
 
         // ตรวจสอบว่ารหัสผ่านมีจำนวนไม่เท่ากับ 10 ตัวอักษร
-        if (currentCard == "onlinePaymentPanel") {
+        if (currentCard == "OnlineBanking") {
             if (password.length < 1) {
                 // แสดงแจ้งเตือนว่าต้องใช้รหัสผ่าน 10 ตัวอักษร
                 JOptionPane.showMessageDialog(this, "Please enter your card number.", "Payment failed", JOptionPane.WARNING_MESSAGE);
@@ -902,6 +903,8 @@ public class PaymentUI extends JFrame {  // for rollback 2
                 LocalDateTime dateTime = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String payDate = dateTime.format(formatter);
+
+                new TicketUI().setVisible(true);
 
                 new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
 

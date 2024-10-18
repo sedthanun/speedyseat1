@@ -9,6 +9,7 @@ public class PayByBanking extends PaymentMethod {
     // Get details for banking payment method
     @Override
     public String getDetails() {
+
         return getDetails();
     }
 
