@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
 
 import com.formdev.flatlaf.themes.*;
@@ -173,6 +174,7 @@ public class SeatSelection extends JFrame {
         // Reverse the row order (row 0 should be "E", row 1 should be "D", etc.)
         String[] reversedRows = {"E", "D", "C", "B", "A"};
 
+        // Calculate the index for the current row (which is actually reversed)
         for (int j = 0; j < seatsPerRow; j++) {
             gbc.gridx = j + 2;  // Adjust grid layout position
 
@@ -186,7 +188,7 @@ public class SeatSelection extends JFrame {
             // Create the seat button with the seat name
             final JButton seatButton = new JButton(seatName);
             seatButton.setPreferredSize(new Dimension(50, 30));
-            seatButtons[row][j] = seatButton;
+            seatButtons[row][j] = seatButton;  // Assuming seatButtons is a 2D array of JButton
 
             // Check if the seat is available and set button state accordingly
             if (!seat.getisAvailable()) {
@@ -197,19 +199,25 @@ public class SeatSelection extends JFrame {
             seatButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    // Check if the seat is available before allowing selection
                     if (!seat.getisAvailable()) {
                         JOptionPane.showMessageDialog(SeatSelection.this,
                                 "Seat " + seatName + " is not available!",
                                 "Seat Selection",
                                 JOptionPane.WARNING_MESSAGE);
-                        return;
+                        return; // Exit if the seat is not available
                     }
 
-                    int seatPrice = getSeatPrice(reversedRows[row]);
+                    // Extract the seat price from the seat's information dictionary
+                    Dictionary<String, Object> seatInfo = seat.getSeatInfo();
+                    Float seatPriceFloat = (Float) seatInfo.get("seatPrice");  // Get the price as Float
+                    int seatPrice = seatPriceFloat != null ? seatPriceFloat.intValue() : 0;  // Convert to int, handle null
 
+
+                    // Use the correct seatName for selection
                     if (selectedSeats.contains(seatName)) {
                         selectedSeats.remove(seatName);
-                        seatButton.setEnabled(true);
+                        seatButton.setEnabled(true);  // Re-enable the button
                         totalPrice -= seatPrice;
                         JOptionPane.showMessageDialog(SeatSelection.this,
                                 "Seat " + seatName + " has been deselected",
@@ -217,7 +225,7 @@ public class SeatSelection extends JFrame {
                                 JOptionPane.INFORMATION_MESSAGE);
                     } else if (selectedSeats.size() < 5) {
                         selectedSeats.add(seatName);
-                        seatButton.setEnabled(false);
+                        seatButton.setEnabled(false); // Disable the button as it's now selected
                         totalPrice += seatPrice;
                         JOptionPane.showMessageDialog(SeatSelection.this,
                                 "SEAT " + seatName + " SELECTED",
@@ -233,9 +241,12 @@ public class SeatSelection extends JFrame {
                     updateTotalPriceLabel();
                 }
             });
+
+            // Add seat button to the layout
             add(seatButton, gbc);
         }
     }
+
 
     private int getSeatPrice(String seatRow) {
         if (seatRow.equals("A") || seatRow.equals("B")) {
