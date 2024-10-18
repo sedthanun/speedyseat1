@@ -23,7 +23,15 @@ public class Payment {
         payByCash = new PayByCash();
         payByBanking = new PayByBanking();
     }
+    public Dictionary<String, Object> getPaymentInto(){
+        Dictionary<String, Object> paymentInfo = new Hashtable<>();
 
+        paymentInfo.put("paymentMethod", paymentMethod);
+        paymentInfo.put("dat_of_Payment", dat_of_Payment);
+        paymentInfo.put("amount", amount);
+
+        return paymentInfo;
+    }
     public Payment(Movie movie, Showtime showtime, ArrayList<String> selectedSeats, String paymentMethod, int amount, String date_of_Payment) {
         this();
 
