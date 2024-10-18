@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
 
 import com.formdev.flatlaf.themes.*;
@@ -35,7 +34,7 @@ public class SeatSelection extends JFrame {
 
         gbc.gridwidth = 1;
 
-        List<Seat> Allseats = (List<Seat>)(showtime.getShowtimeInfo().get("seats"));
+        List<Seat> allSeats = (List<Seat>)(showtime.getShowtimeInfo().get("seats"));
 
         String[][] seatRows = {
                 {"E", "Standard"},
@@ -65,9 +64,7 @@ public class SeatSelection extends JFrame {
             }
 
             createSeatButtons(row, seatRows[row], gbc, showtime);
-            System.out.println(showtime.getShowtimeInfo().get("seats"));
         }
-
 
         // SELECTED SEAT
         gbc.gridy = seatRows.length + 1;
@@ -133,14 +130,26 @@ public class SeatSelection extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                selectedSeats.clear();
-
+                // รีเซ็ตเฉพาะที่นั่งที่ผู้ใช้ปัจจุบันเลือก
                 for (int i = 0; i < seatButtons.length; i++) {
                     for (int j = 0; j < seatButtons[i].length; j++) {
-                        seatButtons[i][j].setEnabled(true);
+                        JButton seatButton = seatButtons[i][j];
+                        String seatName = seatButton.getText();
+
+                        // รีเซ็ตปุ่มเฉพาะที่นั่งที่ผู้ใช้ปัจจุบันเลือก
+                        if (selectedSeats.contains(seatName)) {
+                            seatButton.setEnabled(true);
+                        }
                     }
                 }
+
+                // ล้างข้อมูลที่นั่งที่ถูกเลือก
+                selectedSeats.clear();
+
+                // ตั้งค่า Total Price กลับเป็น 0
                 totalPrice = 0;
+
+                // อัพเดตข้อมูลที่นั่งและราคาบนหน้าจอ
                 updateSelectedSeatLabel();
                 updateTotalPriceLabel();
             }
@@ -164,8 +173,6 @@ public class SeatSelection extends JFrame {
         // Reverse the row order (row 0 should be "E", row 1 should be "D", etc.)
         String[] reversedRows = {"E", "D", "C", "B", "A"};
 
-        // Calculate the index for the current row (which is actually reversed)
-        // total rows can be derived from how many seats there are
         for (int j = 0; j < seatsPerRow; j++) {
             gbc.gridx = j + 2;  // Adjust grid layout position
 
@@ -179,7 +186,7 @@ public class SeatSelection extends JFrame {
             // Create the seat button with the seat name
             final JButton seatButton = new JButton(seatName);
             seatButton.setPreferredSize(new Dimension(50, 30));
-            seatButtons[row][j] = seatButton;  // Assuming seatButtons is a 2D array of JButton
+            seatButtons[row][j] = seatButton;
 
             // Check if the seat is available and set button state accordingly
             if (!seat.getisAvailable()) {
@@ -190,21 +197,19 @@ public class SeatSelection extends JFrame {
             seatButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Check if the seat is available before allowing selection
                     if (!seat.getisAvailable()) {
                         JOptionPane.showMessageDialog(SeatSelection.this,
                                 "Seat " + seatName + " is not available!",
                                 "Seat Selection",
                                 JOptionPane.WARNING_MESSAGE);
-                        return; // Exit if the seat is not available
+                        return;
                     }
 
-                    int seatPrice = getSeatPrice(reversedRows[row]);  // Get the price for this row
+                    int seatPrice = getSeatPrice(reversedRows[row]);
 
-                    // Use the correct seatName for selection
                     if (selectedSeats.contains(seatName)) {
                         selectedSeats.remove(seatName);
-                        seatButton.setEnabled(true);  // Re-enable the button
+                        seatButton.setEnabled(true);
                         totalPrice -= seatPrice;
                         JOptionPane.showMessageDialog(SeatSelection.this,
                                 "Seat " + seatName + " has been deselected",
@@ -212,7 +217,7 @@ public class SeatSelection extends JFrame {
                                 JOptionPane.INFORMATION_MESSAGE);
                     } else if (selectedSeats.size() < 5) {
                         selectedSeats.add(seatName);
-                        seatButton.setEnabled(false); // Disable the button as it's now selected
+                        seatButton.setEnabled(false);
                         totalPrice += seatPrice;
                         JOptionPane.showMessageDialog(SeatSelection.this,
                                 "SEAT " + seatName + " SELECTED",
@@ -228,53 +233,32 @@ public class SeatSelection extends JFrame {
                     updateTotalPriceLabel();
                 }
             });
-
-            // Add seat button to the layout
             add(seatButton, gbc);
         }
     }
 
-
-
-
-
-
-
-
-
-
-    private int getSeatPrice(String row) {
-        switch (row) {
-            case "A":
-                return 500;
-            case "B":
-            case "C":
-                return 300;
-            case "D":
-            case "E":
-            default:
-                return 220;
+    private int getSeatPrice(String seatRow) {
+        if (seatRow.equals("A") || seatRow.equals("B")) {
+            return 300;
+        } else if (seatRow.equals("C") || seatRow.equals("D")) {
+            return 200;
+        } else {
+            return 100;
         }
     }
 
     private void updateSelectedSeatLabel() {
-        StringBuilder seatText = new StringBuilder();
-        for (String seat : selectedSeats) {
-            seatText.append(seat).append(" ");
-        }
-        selectedSeatListLabel.setText(seatText.toString().trim());
+        selectedSeatListLabel.setText(String.join(", ", selectedSeats));
     }
 
     private void updateTotalPriceLabel() {
         totalPriceValueLabel.setText(totalPrice + " THB");
     }
 
+    // Your Movie and Showtime classes should be here with the methods like getisAvailable, getShowtimeInfo, etc.
+
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new FlatMacDarkLaf());
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-        //new SeatSelection(Showtime showtime, Movie movie);
+        // Example test
+        // new SeatSelection(new Showtime(), new Movie()).setVisible(true);
     }
 }
