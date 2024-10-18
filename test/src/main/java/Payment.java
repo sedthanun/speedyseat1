@@ -1,20 +1,31 @@
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 public class Payment {
     // Attribute: List of PaymentMethod (Aggregation)
+    private PayByQR payByQR;
+    private PayByCash payByCash;
+    private PayByBanking payByBanking;
+
     private Movie movie;
     private Showtime showtime;
     private ArrayList<String> selectedSeats;
     private int amount;
     private String paymentMethod;
     private String dat_of_Payment;
-    private List<PaymentMethod> paymentMethods;
 
     // Constructor
+    public Payment() {
+        payByQR = new PayByQR();
+        payByCash = new PayByCash();
+        payByBanking = new PayByBanking();
+    }
+
     public Payment(Movie movie, Showtime showtime, ArrayList<String> selectedSeats, String paymentMethod, int amount, String date_of_Payment) {
-        this.paymentMethods = new ArrayList<>();
+        this();
 
         this.movie = movie;
         this.showtime = showtime;
@@ -31,13 +42,17 @@ public class Payment {
         System.out.println("Date of Pay: " + date_of_Payment);
     }
 
-    // Getter for payment methods
-    public List<PaymentMethod> getPaymentMethods() {
-        return paymentMethods;
+    public Object getPaymentMethod(String method) {
+        Dictionary<String, Object> paymentMethod = new Hashtable<>();
+
+        paymentMethod.put("payByQR", payByQR);
+        paymentMethod.put("payByCash", payByCash);
+        paymentMethod.put("payByBanking", payByBanking);
+
+        return paymentMethod.get(method);
     }
 
     // Make a payment using a specific payment method
     public void makePayment(PaymentMethod paymentMethod) {
-
     }
 }
