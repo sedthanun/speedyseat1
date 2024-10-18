@@ -1,5 +1,7 @@
 public class PayByCash extends PaymentMethod {
     // Pay by cash
+    private PaymentUI.payAtCounterPanel payByCashUI;
+
     @Override
     public void pay(double amount) {
     }

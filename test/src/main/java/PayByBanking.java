@@ -1,5 +1,7 @@
 public class PayByBanking extends PaymentMethod {
     // Pay by banking method
+    private PaymentUI.onlinePaymentPanel payByBankingUI;
+
     @Override
     public void pay(double amount) {
     }
