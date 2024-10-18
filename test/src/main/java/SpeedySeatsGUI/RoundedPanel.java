@@ -1,3 +1,5 @@
+package SpeedySeatsGUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;

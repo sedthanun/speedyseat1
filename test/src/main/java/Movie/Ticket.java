@@ -1,9 +1,5 @@
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-
+package Movie;
+import Booking.*;
 public class Ticket {
     private int ticketID;
     private String ticketStatus;

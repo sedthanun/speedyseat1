@@ -1,13 +1,22 @@
+package Booking;
+
 import Database.DBmanipulation;
 import Database.DBquery;
+import Movie.Movie;
+import Movie.Ticket;
+import Payment.Payment;
+import Theatre.Showtime;
 
-import java.awt.*;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import Payment.*;
+import Booking.*;
+import Movie.*;
+import SpeedySeatsGUI.*;
 public class Booking {
     private int bookingID;
     private List<Seat> seats;

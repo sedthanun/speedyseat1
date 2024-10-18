@@ -1,12 +1,14 @@
+package SpeedySeatsGUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
-
-import com.formdev.flatlaf.themes.*;
-
+import Theatre.*;
+import Booking.*;
+import Movie.*;
 public class SeatSelection extends JFrame {
     private final ArrayList<String> selectedSeats = new ArrayList<>();
     private final JButton[][] seatButtons = new JButton[5][5];

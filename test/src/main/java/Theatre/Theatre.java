@@ -1,3 +1,5 @@
+package Theatre;
+
 import java.util.Dictionary;
 import java.util.Hashtable;
 

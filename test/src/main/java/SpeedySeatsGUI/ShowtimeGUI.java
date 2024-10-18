@@ -1,5 +1,5 @@
+package SpeedySeatsGUI;
 
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.sql.*;
-import Database.*;
 import java.util.List;
 import java.util.*;
-
+import Movie.*;
+import Theatre.*;
 
 public class ShowtimeGUI extends JFrame {
     private JLabel showtimeLabel;
@@ -186,7 +184,7 @@ public class ShowtimeGUI extends JFrame {
         return buttons;
     }
 
-    private ArrayList<JButton> createShowtimeButtons(Movie movie,String num) {
+    private ArrayList<JButton> createShowtimeButtons(Movie movie, String num) {
         ArrayList<JButton> buttons = new ArrayList<>();
         List<Showtime> showtime = movie.getShowtimeList();
         List<Showtime> sepShowtime = new ArrayList<>();

@@ -1,3 +1,5 @@
+package Payment;
+
 public interface PaymentMethod {
     // Method to process the payment
     void pay(double amount);

@@ -1,9 +1,11 @@
+package SpeedySeatsGUI;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import com.formdev.flatlaf.themes.*;
+import Movie.*;
 public class MovieSelection implements MouseListener, ActionListener, WindowListener{
     private JFrame homeframe;
     private JPanel homepanel;

@@ -1,9 +1,10 @@
+package Payment;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
-import java.util.List;
-
+import Theatre.*;
+import Movie.*;
 public class Payment {
     // Attribute: List of PaymentMethod (Aggregation)
     private PayByQR payByQR;
@@ -23,7 +24,7 @@ public class Payment {
         payByCash = new PayByCash();
         payByBanking = new PayByBanking();
     }
-    public Dictionary<String, Object> getPaymentInto(){
+    public Dictionary<String, Object> getPaymentInfo(){
         Dictionary<String, Object> paymentInfo = new Hashtable<>();
 
         paymentInfo.put("paymentMethod", paymentMethod);

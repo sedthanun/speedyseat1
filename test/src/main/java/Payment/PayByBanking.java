@@ -1,3 +1,5 @@
+package Payment;
+
 public class PayByBanking extends javax.swing.JPanel implements PaymentMethod {
 
     private static String methodName = "OnlineBanking";
@@ -134,7 +136,7 @@ public class PayByBanking extends javax.swing.JPanel implements PaymentMethod {
         // TODO add your handling code here:
     }
 
-    protected char[] getpassword() {
+    public char[] getpassword() {
         char[] password = cardNumber.getPassword();
 
         return password;

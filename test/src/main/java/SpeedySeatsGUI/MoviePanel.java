@@ -1,7 +1,10 @@
+package SpeedySeatsGUI;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+
+import Movie.*;
 
 public class MoviePanel extends JPanel implements MouseListener{
     private JLabel imgLabel, nameLabel, ratingLabel;

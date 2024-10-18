@@ -1,7 +1,11 @@
+package Movie;
+
 import Database.DBquery;
 
 import java.sql.ResultSet;
 import java.util.*;
+import Movie.*;
+import Theatre.*;
 
 public class Movie {
     private int movieID;

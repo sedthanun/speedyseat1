@@ -1,3 +1,7 @@
+package Payment;
+
+import SpeedySeatsGUI.RoundedPanel;
+
 public class PayByCash extends javax.swing.JPanel implements PaymentMethod {
 
     private static String methodName = "Cash";

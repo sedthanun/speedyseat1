@@ -1,8 +1,11 @@
+package Theatre;
+
 import Database.DBquery;
 
-import javax.lang.model.type.NullType;
 import java.sql.ResultSet;
 import java.util.*;
+import Booking.*;
+import Theatre.*;
 
 public class Showtime {
     private int showtimeID;
