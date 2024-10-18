@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.formdev.flatlaf.themes.*;
 
@@ -59,6 +60,11 @@ public class SeatSelection extends JFrame {
             }
 
             createSeatButtons(row, seatRows[row], gbc);
+            //System.out.println(showtime.getShowtimeInfo().get("seats"));
+        }
+        List<Seat> Allseats = (List<Seat>)(showtime.getShowtimeInfo().get("seats"));
+        for (Seat one_seat: Allseats){
+            System.out.println(one_seat.getSeatInfo().get("seatNumber") + ": " + one_seat.getisAvailable());
         }
 
         // SELECTED SEAT
