@@ -1,16 +1,10 @@
-package Payments;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -23,6 +17,18 @@ public class qrCodePanel extends javax.swing.JPanel {
      */
     public qrCodePanel() {
         initComponents();
+
+        price.setVisible(false);
+
+        LocalDateTime dateTime = LocalDateTime.now();
+
+        // เพิ่มเวลา 1 ชั่วโมง
+        LocalDateTime newDateTime = dateTime.plusHours(1);
+
+        // กำหนดรูปแบบการแสดงผลวันที่และเวลา
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        timer.setText("Valid until: " + newDateTime.format(formatter));
     }
 
     /**

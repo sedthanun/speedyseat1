@@ -1,8 +1,3 @@
-package Payments;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Ticket {
     private int movieID;
     private String movieName;

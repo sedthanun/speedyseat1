@@ -1,13 +1,3 @@
-package Payments;
-
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -25,6 +15,8 @@ public class payAtCounterPanel extends javax.swing.JPanel {
      */
     public payAtCounterPanel() {
         initComponents();
+
+        jLabel3.setVisible(false);
     }
 
     /**

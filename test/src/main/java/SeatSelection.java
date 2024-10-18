@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-import Payments.PaymentUI;
 import com.formdev.flatlaf.themes.*;
 
 public class SeatSelection extends JFrame {
@@ -106,7 +105,7 @@ public class SeatSelection extends JFrame {
                             "Limit Exceeded",
                             JOptionPane.WARNING_MESSAGE);
                 } else {
-                    //new PaymentUI(showtime, movie, selectedSeats, totalPrice).setVisible(true);
+                    new PaymentUI(showtime, movie, selectedSeats, totalPrice).setVisible(true);
                     System.out.println("New Payment UI");
                 }
             }

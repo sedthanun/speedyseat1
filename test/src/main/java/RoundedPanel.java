@@ -1,11 +1,5 @@
-package Payments;
-
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -24,7 +18,7 @@ public class RoundedPanel extends JPanel {
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 0, 0); // กำหนดให้ขอบมน 30px
         super.paintComponent(g);
     }
-//
+
 //    @Override
 //    protected void paintBorder(Graphics g) {
 //        Graphics2D g2 = (Graphics2D) g;
@@ -32,7 +26,7 @@ public class RoundedPanel extends JPanel {
 //        g2.setColor(getBackground()); // เปลี่ยนสีขอบให้เป็นสีเดียวกับพื้นหลัง
 //        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 30, 30);
 //    }
-//
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(200, 100);

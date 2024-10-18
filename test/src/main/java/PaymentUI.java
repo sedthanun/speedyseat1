@@ -1,5 +1,3 @@
-package Payments;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -11,9 +9,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.util.ArrayList;
 import javax.swing.*;
 import com.formdev.flatlaf.themes.*;
-import test.Showtime;
+import java.io.ByteArrayInputStream;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -56,27 +56,49 @@ public class PaymentUI extends JFrame {  // for rollback 2
         setLocationRelativeTo(null);
         setResizable(false);
 
-        ImageIcon icon = new ImageIcon(getClass().getResource("/Icon/Icon_App_Test.png")); // เปลี่ยน path_to_your_icon.png เป็นที่อยู่ของไอคอน
-        setIconImage(icon.getImage());
+//        ImageIcon icon = new ImageIcon(getClass().getResource("/Icon/Icon_App_Test.png")); // เปลี่ยน path_to_your_icon.png เป็นที่อยู่ของไอคอน
+//        setIconImage(icon.getImage());
     }
 
-//    public PaymentUI(Showtime showtime,Movie movie,SeatSeletion selectedSeats,SeatSeletion totalPrice) {
-//        this();
-//
-//        byte[] moviePos = (byte[]) movie.getMovieInfo().get("moviePoster");
-//        jLabel1.setIcon(new ImageIcon(moviePos));
-//
-//        dateShowtime.setText("   |  ");
-//        movieName.setText(movie.getMovieInfo().get("movieName"));
-//        movieGenre.setText(movie.getMovieInfo().get("movieGenre"));
-//        runtime.setText(movie.getMovieInfo().get("movieRuntime"));
-//        theatre.setText(movie.getMovieInfo().get("movieTheatre"));
-//        sound.setText(movie.getMovieInfo().get("movieSound"));
-//        subtitle.setText(movie.getMovieInfo().get("movieSubtitle"));
-//        jLabel5.setText(movie.getMovieInfo().get("movieSceenformat"));
-//        seat.setText(movie.getMovieInfo().get("seat"));
-//        price.setText(movie.getMovieInfo().get("moviePrice"));
-//    }
+    public PaymentUI(Showtime showtime, Movie movie, ArrayList<String> selectedSeats, int totalPrice) {
+        this();
+
+        byte[] moviePoster = (byte[]) movie.getMovieInfo().get("moviePoster");
+        try {
+            // แปลง byte[] เป็น Image
+            ByteArrayInputStream bais = new ByteArrayInputStream(moviePoster);
+            Image originalImage = ImageIO.read(bais);
+
+            // ตรวจสอบว่า Image ถูกโหลดสำเร็จหรือไม่
+            if (originalImage != null) {
+                // ปรับขนาดของภาพ
+                Image resizedImage = originalImage.getScaledInstance(200, 300, Image.SCALE_SMOOTH);
+
+                // ตั้งค่า Icon ให้กับ JLabel
+                jLabel1.setIcon(new ImageIcon(resizedImage));
+            } else {
+                System.out.println("ไม่สามารถโหลดภาพได้");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        jLabel1.setIcon(new ImageIcon(resizedImage));
+
+        dateShowtime.setText("" + showtime.getShowtimeInfo().get("showtimeDateTime"));
+        movieName.setText("" + movie.getMovieInfo().get("movieName"));
+        movieGenre.setText("" + movie.getMovieInfo().get("movieGenre"));
+        runtime.setText(movie.getMovieInfo().get("movieRuntime") + " min");
+
+        Theatre theatreNum = (Theatre) showtime.getShowtimeInfo().get("theatre");
+        theatre.setText("Theatre " + theatreNum.getTheatreInfo().get("theatreNumber"));
+
+        sound.setText("" + showtime.getShowtimeInfo().get("sound"));
+        subtitle.setText("" + showtime.getShowtimeInfo().get("subtitle"));
+        jLabel5.setText("" + showtime.getShowtimeInfo().get("screenFormat"));
+        seat.setText(String.join(", ", selectedSeats));
+        price.setText("Price: " + String.valueOf(totalPrice) + " ฿");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
