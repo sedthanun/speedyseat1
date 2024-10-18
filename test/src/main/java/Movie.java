@@ -93,20 +93,4 @@ public class Movie {
             }
         }
     }
-
-    public static void main(String[] args) {
-        Movie.setMovieListFromDB();
-        Movie.setShowtimeListFromDB();
-        for (Movie movie : Movie.movies){
-            System.out.println(" ");
-            System.out.println(" ");
-            System.out.println(" ");
-            System.out.println("Movie Name: "+movie.movieName);
-            for (Showtime showtime : movie.showtimes){
-                System.out.println(" ");
-                System.out.println("ShowtimeDT: "+(String)showtime.getShowtimeInfo().get("showtimeDateTime"));
-            }
-
-        }
-    }
 }
