@@ -453,12 +453,19 @@ public class PaymentUI extends JFrame {  // for rollback 2
         setLocationRelativeTo(null);
         setResizable(false);
 
+        totalPrice = 0;
+
 //        ImageIcon icon = new ImageIcon(getClass().getResource("/Icon/Icon_App_Test.png")); // เปลี่ยน path_to_your_icon.png เป็นที่อยู่ของไอคอน
 //        setIconImage(icon.getImage());
     }
 
     public PaymentUI(Showtime showtime, Movie movie, ArrayList<String> selectedSeats, int totalPrice) {
         this();
+
+        this.showtime = showtime;
+        this.movie = movie;
+        this.selectedSeats = selectedSeats;
+        this.totalPrice = totalPrice;
 
         byte[] moviePoster = (byte[]) movie.getMovieInfo().get("moviePoster");
         try {
@@ -482,19 +489,16 @@ public class PaymentUI extends JFrame {  // for rollback 2
 
 //        jLabel1.setIcon(new ImageIcon(resizedImage));
 
-        dateShowtime.setText("" + showtime.getShowtimeInfo().get("showtimeDateTime"));
-        movieName.setText("" + movie.getMovieInfo().get("movieName"));
-        movieGenre.setText("" + movie.getMovieInfo().get("movieGenre"));
-        runtime.setText(movie.getMovieInfo().get("movieRuntime") + " min");
-
-        Theatre theatreNum = (Theatre) showtime.getShowtimeInfo().get("theatre");
-        theatre.setText("Theatre " + theatreNum.getTheatreInfo().get("theatreNumber"));
-
-        sound.setText("" + showtime.getShowtimeInfo().get("sound"));
-        subtitle.setText("" + showtime.getShowtimeInfo().get("subtitle"));
-        jLabel5.setText("" + showtime.getShowtimeInfo().get("screenFormat"));
-        seat.setText(String.join(", ", selectedSeats));
-        price.setText("Price: " + String.valueOf(totalPrice) + " ฿");
+        dateShowtime.setText("" + this.showtime.getShowtimeInfo().get("showtimeDateTime"));
+        movieName.setText("" + this.movie.getMovieInfo().get("movieName"));
+        movieGenre.setText("" + this.movie.getMovieInfo().get("movieGenre"));
+        runtime.setText(this.movie.getMovieInfo().get("movieRuntime") + " min");
+        theatre.setText("Theatre " + ((Theatre) showtime.getShowtimeInfo().get("theatre")).getTheatreInfo().get("theatreNumber"));
+        sound.setText("" + this.showtime.getShowtimeInfo().get("sound"));
+        subtitle.setText("" + this.showtime.getShowtimeInfo().get("subtitle"));
+        jLabel5.setText("" + this.showtime.getShowtimeInfo().get("screenFormat"));
+        seat.setText(String.join(", ", this.selectedSeats));
+        price.setText("Price: " + String.valueOf(this.totalPrice) + " ฿");
     }
 
     /**
@@ -558,19 +562,19 @@ public class PaymentUI extends JFrame {  // for rollback 2
 
         dateShowtime.setFont(new Font("Segue UI", 0, 14)); // NOI18N
         dateShowtime.setForeground(new Color(153, 204, 255));
-        dateShowtime.setText("17 October 2024   |  18:00");
+        dateShowtime.setText("31 August 2024   |  18:00");
 
         movieName.setFont(new Font("Segoe UI", 1, 24)); // NOI18N
         movieName.setForeground(new Color(255, 255, 255));
-        movieName.setText("Look Back");
+        movieName.setText("Dandadan");
 
         movieGenre.setBackground(new Color(255, 255, 255));
         movieGenre.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
         movieGenre.setForeground(new Color(255, 255, 255));
-        movieGenre.setText("Action, Drama, Romance");
+        movieGenre.setText("Action, Adventure, Animation, Comedy, Romance, Science Fiction");
 
         runtime.setForeground(new Color(255, 255, 255));
-        runtime.setText("60 min");
+        runtime.setText("83 min");
 
         theatre.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
         theatre.setForeground(new Color(255, 255, 255));
@@ -895,9 +899,21 @@ public class PaymentUI extends JFrame {  // for rollback 2
                 JOptionPane.showMessageDialog(this, "Wrong card number.", "Payment failed", JOptionPane.WARNING_MESSAGE);
             } else {
                 // โค้ดอื่น ๆ สำหรับการดำเนินการหลังจากป้อนรหัสผ่านถูกต้อง
+                LocalDateTime dateTime = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String payDate = dateTime.format(formatter);
+
+                new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
+
                 System.out.println("Confirm");
             }
         } else {
+            LocalDateTime dateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String payDate = dateTime.format(formatter);
+
+            new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
+
             System.out.println("Confirm");
         }
     }
@@ -965,4 +981,9 @@ public class PaymentUI extends JFrame {  // for rollback 2
     private JPanel mainPanel;
     private JButton pay;
     private String currentCard;
+
+    private Movie movie;
+    private Showtime showtime;
+    private ArrayList<String> selectedSeats;
+    private int totalPrice;
 }

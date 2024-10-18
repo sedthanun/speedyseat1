@@ -1,5 +1,7 @@
 public class PayByQR extends PaymentMethod {
     // Pay by QR method
+    protected PaymentUI.qrCodePanel payByQRCodeUI;
+
     @Override
     public void pay(double amount) {
     }
