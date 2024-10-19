@@ -21,8 +21,10 @@ public class ShowtimeGUI extends JFrame {
     private JPanel showtimePanel;
     private ArrayList<JButton> showtimeButtons;
     private GridBagConstraints gbcMiddle;
+    private Account account;
 
     public ShowtimeGUI(Movie movie, Account account) {
+        this.account = account;
         setTitle("ShowtimeDemo");
         setSize(1280, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -204,7 +206,7 @@ public class ShowtimeGUI extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     showtimeLabel.setText("Showtime: " + ab.getShowtimeInfo().get("showtimeDateTime"));
-                    new SeatSelection(ab,movie);
+                    new SeatSelection(ab,movie,account);
                 }
             });
             buttons.add(button);

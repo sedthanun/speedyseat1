@@ -17,14 +17,17 @@ public class SeatSelection extends JFrame {
     private final JLabel selectedSeatListLabel = new JLabel("");
     private final JLabel totalPriceValueLabel = new JLabel("0 THB");
     private int totalPrice = 0;
+    private Account account;
 
-    public SeatSelection(Showtime showtime, Movie movie) {
+    public SeatSelection(Showtime showtime, Movie movie, Account account) {
         setTitle("Seat Selection");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(500, 500);
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+
+        this.account = account;
 
         gbc.gridy = 0;
         gbc.gridx = 0;
@@ -34,6 +37,7 @@ public class SeatSelection extends JFrame {
         screenLabel.setFont(new Font("Arial", Font.BOLD, 16));
         screenLabel.setForeground(Color.blue);
         add(screenLabel, gbc);
+
 
         gbc.gridwidth = 1;
 
@@ -113,7 +117,7 @@ public class SeatSelection extends JFrame {
                             "Limit Exceeded",
                             JOptionPane.WARNING_MESSAGE);
                 } else {
-                    new PaymentUI(showtime, movie, selectedSeats, totalPrice).setVisible(true);
+                    new PaymentUI(showtime, movie, selectedSeats, totalPrice, account).setVisible(true);
                     System.out.println("New Payment UI");
                 }
             }
