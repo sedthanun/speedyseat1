@@ -3,6 +3,9 @@ package Payment;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
+
+import Booking.Seat;
 import Theatre.*;
 import Movie.*;
 public class Payment {
@@ -13,7 +16,7 @@ public class Payment {
 
     private Movie movie;
     private Showtime showtime;
-    private ArrayList<String> selectedSeats;
+    private List<Seat> selectedSeats;
     private int amount;
     private String paymentMethod;
     private String dat_of_Payment;
@@ -33,7 +36,7 @@ public class Payment {
 
         return paymentInfo;
     }
-    public Payment(Movie movie, Showtime showtime, ArrayList<String> selectedSeats, String paymentMethod, int amount, String date_of_Payment) {
+    public Payment(Movie movie, Showtime showtime, List<Seat> selectedSeats, String paymentMethod, int amount, String date_of_Payment) {
         this();
 
         this.movie = movie;
@@ -45,7 +48,7 @@ public class Payment {
 
         System.out.println("\nMovie: " + this.movie.getMovieInfo().get("movieName"));
         System.out.println("Theatre: " + ((Theatre) showtime.getShowtimeInfo().get("theatre")).getTheatreInfo().get("theatreNumber"));
-        System.out.println("SelectedSeats: " + String.join(", ", this.selectedSeats));
+        //System.out.println("SelectedSeats: " + String.join(", ", this.selectedSeats));
         System.out.println("PaymentMethod: " + paymentMethod);
         System.out.println("Amount: " + amount);
         System.out.println("Date of Pay: " + date_of_Payment);

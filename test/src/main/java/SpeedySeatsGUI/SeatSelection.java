@@ -10,7 +10,7 @@ import Theatre.*;
 import Booking.*;
 import Movie.*;
 public class SeatSelection extends JFrame {
-    private final ArrayList<String> selectedSeats = new ArrayList<>();
+    private final List<Seat> selectedSeats = new ArrayList<>();
     private final JButton[][] seatButtons = new JButton[5][5];
     private final JLabel selectedSeatLabel = new JLabel("SELECTED SEAT");
     private final JLabel totalPriceLabel = new JLabel("TOTAL PRICE");
@@ -205,7 +205,6 @@ public class SeatSelection extends JFrame {
             seatButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Check if the seat is available before allowing selection
                     if (!seat.getisAvailable()) {
                         JOptionPane.showMessageDialog(SeatSelection.this,
                                 "Seat " + seatName + " is not available!",
@@ -214,15 +213,13 @@ public class SeatSelection extends JFrame {
                         return; // Exit if the seat is not available
                     }
 
-                    // Extract the seat price from the seat's information dictionary
                     Dictionary<String, Object> seatInfo = seat.getSeatInfo();
-                    Float seatPriceFloat = (Float) seatInfo.get("seatPrice");  // Get the price as Float
-                    int seatPrice = seatPriceFloat != null ? seatPriceFloat.intValue() : 0;  // Convert to int, handle null
+                    Float seatPriceFloat = (Float) seatInfo.get("seatPrice");
+                    int seatPrice = seatPriceFloat != null ? seatPriceFloat.intValue() : 0;
 
-
-                    // Use the correct seatName for selection
-                    if (selectedSeats.contains(seatName)) {
-                        selectedSeats.remove(seatName);
+                    // Use the Seat object for selection
+                    if (selectedSeats.contains(seat)) {
+                        selectedSeats.remove(seat);
                         seatButton.setEnabled(true);  // Re-enable the button
                         totalPrice -= seatPrice;
                         JOptionPane.showMessageDialog(SeatSelection.this,
@@ -230,7 +227,7 @@ public class SeatSelection extends JFrame {
                                 "Seat Selection",
                                 JOptionPane.INFORMATION_MESSAGE);
                     } else if (selectedSeats.size() < 5) {
-                        selectedSeats.add(seatName);
+                        selectedSeats.add(seat);
                         seatButton.setEnabled(false); // Disable the button as it's now selected
                         totalPrice += seatPrice;
                         JOptionPane.showMessageDialog(SeatSelection.this,
@@ -243,10 +240,12 @@ public class SeatSelection extends JFrame {
                                 "Limit Exceeded",
                                 JOptionPane.WARNING_MESSAGE);
                     }
+
                     updateSelectedSeatLabel();
                     updateTotalPriceLabel();
                 }
             });
+
 
             // Add seat button to the layout
             add(seatButton, gbc);
@@ -265,8 +264,24 @@ public class SeatSelection extends JFrame {
     }
 
     private void updateSelectedSeatLabel() {
-        selectedSeatListLabel.setText(String.join(", ", selectedSeats));
+        List<String> seatNames = new ArrayList<>();
+        for (Seat seat : selectedSeats) {
+            // Get the seat info dictionary from the Seat object
+            Dictionary<String, Object> seatInfo = seat.getSeatInfo();
+
+            // Retrieve the seatNumber (which acts as the seat name) from the dictionary
+            String seatNumber = (String) seatInfo.get("seatNumber");
+
+            // Add the seat number to the list of selected seat names
+            if (seatNumber != null) {
+                seatNames.add(seatNumber);
+            }
+        }
+
+        // Join the seat names into a single string and update the label
+        selectedSeatListLabel.setText(String.join(", ", seatNames));
     }
+
 
     private void updateTotalPriceLabel() {
         totalPriceValueLabel.setText(totalPrice + " THB");

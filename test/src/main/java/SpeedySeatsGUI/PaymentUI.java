@@ -15,10 +15,13 @@ import java.util.ArrayList;
 import javax.swing.*;
 import com.formdev.flatlaf.themes.*;
 import java.io.ByteArrayInputStream;
+import java.util.Dictionary;
+import java.util.List;
 import javax.imageio.ImageIO;
 import Payment.*;
 import Theatre.*;
 import Movie.*;
+import Booking.*;
 
 /**
  *
@@ -467,9 +470,10 @@ public class PaymentUI extends JFrame {  // for rollback 2
 //        setIconImage(icon.getImage());
     }
 
-    public PaymentUI(Showtime showtime, Movie movie, ArrayList<String> selectedSeats, int totalPrice) {
+    public PaymentUI(Showtime showtime, Movie movie, List<Seat> selectedSeats, int totalPrice, Account account) {
         this();
 
+        this.account = account;
         this.showtime = showtime;
         this.movie = movie;
         this.selectedSeats = selectedSeats;
@@ -496,6 +500,19 @@ public class PaymentUI extends JFrame {  // for rollback 2
         }
 
 //        jLabel1.setIcon(new ImageIcon(resizedImage));
+        seatName = new ArrayList<>();
+
+        for (Seat seat : selectedSeats) {
+            // Get the seat info dictionary from the Seat object
+            Dictionary<String, Object> seatInfo = seat.getSeatInfo();
+
+            // Retrieve the seatNumber (which acts as the seat name) from the dictionary
+            String seatNumber = (String) seatInfo.get("seatNumber");
+
+            if (seatNumber != null) {
+                seatName.add(seatNumber);
+            }
+        }
 
         dateShowtime.setText("" + this.showtime.getShowtimeInfo().get("showtimeDateTime"));
         movieName.setText("" + this.movie.getMovieInfo().get("movieName"));
@@ -505,7 +522,7 @@ public class PaymentUI extends JFrame {  // for rollback 2
         sound.setText("" + this.showtime.getShowtimeInfo().get("sound"));
         subtitle.setText("" + this.showtime.getShowtimeInfo().get("subtitle"));
         jLabel5.setText("" + this.showtime.getShowtimeInfo().get("screenFormat"));
-        seat.setText(String.join(", ", this.selectedSeats));
+        seat.setText(String.join(", ", this.seatName));
         price.setText("Price: " + String.valueOf(this.totalPrice) + " ฿");
     }
 
@@ -915,12 +932,16 @@ public class PaymentUI extends JFrame {  // for rollback 2
 
                 new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
 
+                Booking.saveBookingToDB(booking, account);
+
                 System.out.println("Confirm");
             }
         } else {
             LocalDateTime dateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String payDate = dateTime.format(formatter);
+
+            Booking.saveBookingToDB(booking, account);
 
             new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
 
@@ -995,6 +1016,9 @@ public class PaymentUI extends JFrame {  // for rollback 2
     private Payment payment;
     private Movie movie;
     private Showtime showtime;
-    private ArrayList<String> selectedSeats;
+    private List<Seat> selectedSeats;
     private int totalPrice;
+    private ArrayList<String> seatName;
+    private Booking booking = Booking.createBooking(selectedSeats, totalPrice, showtime, movie, payment);
+    private Account account;
 }
