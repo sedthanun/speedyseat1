@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+
+import Booking.Account;
 import com.formdev.flatlaf.themes.*;
 import Movie.*;
 public class MovieSelection implements MouseListener, ActionListener, WindowListener{
@@ -91,7 +93,7 @@ public class MovieSelection implements MouseListener, ActionListener, WindowList
         for( MoviePanel moviePanels : moviePanels){
             if (e.getSource().equals(moviePanels)){
                 System.out.println("movieID:"+moviePanels.getSelectedMovie().getMovieInfo().get("movieID"));
-                new ShowtimeGUI(moviePanels.getSelectedMovie()).setVisible(true);
+                new ShowtimeGUI(moviePanels.getSelectedMovie(), new Account("John", 1)).setVisible(true);
             }
         }
     }

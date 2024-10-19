@@ -10,6 +10,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.*;
+
+import Booking.Account;
 import Movie.*;
 import Theatre.*;
 
@@ -20,7 +22,7 @@ public class ShowtimeGUI extends JFrame {
     private ArrayList<JButton> showtimeButtons;
     private GridBagConstraints gbcMiddle;
 
-    public ShowtimeGUI(Movie movie) {
+    public ShowtimeGUI(Movie movie, Account account) {
         setTitle("ShowtimeDemo");
         setSize(1280, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
