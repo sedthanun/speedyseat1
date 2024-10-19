@@ -136,15 +136,14 @@ public class SeatSelection extends JFrame {
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                // รีเซ็ตเฉพาะที่นั่งที่ผู้ใช้ปัจจุบันเลือก
+                // รีเซ็ตปุ่มเฉพาะที่นั่งที่ผู้ใช้ปัจจุบันเลือก
                 for (int i = 0; i < seatButtons.length; i++) {
                     for (int j = 0; j < seatButtons[i].length; j++) {
                         JButton seatButton = seatButtons[i][j];
-                        String seatName = seatButton.getText();
+                        Seat seat = allSeats.get((4 - i) * 5 + j); // ดึงที่นั่งจาก allSeats
 
                         // รีเซ็ตปุ่มเฉพาะที่นั่งที่ผู้ใช้ปัจจุบันเลือก
-                        if (selectedSeats.contains(seatName)) {
+                        if (selectedSeats.contains(seat)) {
                             seatButton.setEnabled(true);
                         }
                     }
@@ -161,6 +160,7 @@ public class SeatSelection extends JFrame {
                 updateTotalPriceLabel();
             }
         });
+
 
         add(resetButton, gbc);
         setVisible(true);
