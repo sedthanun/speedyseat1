@@ -7,6 +7,8 @@ import Movie.Ticket;
 import Payment.Payment;
 import Theatre.Showtime;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -75,20 +77,14 @@ public class Booking {
         try {
             System.out.println("insert into Booking");
             DBmanipulation.getInstance().getUpdate(String.format("INSERT INTO Booking (booking_price, showtime_id, account_id) VALUES ('%f', '%d', '%d');", (Float)booking.getBookingInfo().get("bookingPrice"), (Integer)showtime.getShowtimeInfo().get("showtimeID"), (Integer)account.getAccountInfo().get("accountID")));
+            DBmanipulation.getInstance().disconnect(); //อย่าลืม disconnectด้วยครับ
 
-            // ใช้ LAST_INSERT_ID() เพื่อดึง booking_id ที่ถูกสร้างขึ้น
-            ResultSet resultSet = DBquery.getInstance().getSelect("SELECT last_insert_rowid() AS booking_id");
+            ResultSet resultSet = DBquery.getInstance().getSelect("SELECT MAX(booking_id) AS booking_id FROM Booking;");
             if (resultSet != null && resultSet.next()) {
                 bookingId = resultSet.getInt("booking_id");
                 System.out.println(bookingId);
             }
-            resultSet.close();
-//           DBquery.getInstance().disconnect();
-
-            DBmanipulation.getInstance().disconnect(); //อย่าลืม disconnectด้วยครับ
-
-
-
+            DBquery.getInstance().disconnect();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,6 +107,25 @@ public class Booking {
                 System.out.println("update Seat");
                 DBmanipulation.getInstance().getUpdate(String.format("UPDATE Seat SET booking_id = %d WHERE seat_id = %d;", bookingId, (Integer)seat.getSeatInfo().get("seatID")));
                 DBmanipulation.getInstance().disconnect(); //อย่าลืม disconnectด้วยครับ
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // insert Ticket
+        List<Ticket> tickets = (List<Ticket>)booking.getBookingInfo().get("tikets");
+        for(Ticket ticket: tickets){
+            Seat seat = (Seat)ticket.getTicketInfo().get("seat");
+            try {
+                System.out.println("insert Ticket");
+                Connection con = DBmanipulation.getInstance().getCon();
+                PreparedStatement ps = con.prepareStatement("INSERT INTO Ticket (ticket_qr_code, booking_id, seat_id) VALUES (?, ?, ?);");
+
+                ps.setBytes(1, (byte[])ticket.getTicketInfo().get("qrCode"));
+                ps.setInt(2, bookingId);
+                ps.setInt(3, (Integer)seat.getSeatInfo().get("seatID"));
+                ps.executeUpdate();
+                DBmanipulation.getInstance().disconnect();
             } catch (Exception e) {
                 e.printStackTrace();
             }

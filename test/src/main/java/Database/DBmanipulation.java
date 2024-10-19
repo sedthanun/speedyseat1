@@ -1,5 +1,6 @@
 package Database;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +34,19 @@ public class DBmanipulation extends DBconnect {
             disconnect();
         }
     }
+
+    public Connection getCon() {
+        try {
+            con = DriverManager.getConnection(url);
+            return con;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            disconnect();
+        }
+        return null;
+    }
+
     public void disconnect() {
         try {
             stm.close();
