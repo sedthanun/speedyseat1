@@ -479,6 +479,7 @@ public class PaymentUI extends JFrame {  // for rollback 2
         this.selectedSeats = selectedSeats;
         this.totalPrice = totalPrice;
 
+
         byte[] moviePoster = (byte[]) movie.getMovieInfo().get("moviePoster");
         try {
             // แปลง byte[] เป็น Image
@@ -930,7 +931,9 @@ public class PaymentUI extends JFrame {  // for rollback 2
 
                 new TicketUI().setVisible(true);
 
-                new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
+                payment = new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
+
+                booking = Booking.createBooking(selectedSeats, totalPrice, showtime, movie, payment);
 
                 Booking.saveBookingToDB(booking, account);
 
@@ -941,9 +944,13 @@ public class PaymentUI extends JFrame {  // for rollback 2
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String payDate = dateTime.format(formatter);
 
+            payment = new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
+
+            booking = Booking.createBooking(selectedSeats, totalPrice, showtime, movie, payment);
+
             Booking.saveBookingToDB(booking, account);
 
-            new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
+
 
             System.out.println("Confirm");
         }
@@ -1019,6 +1026,6 @@ public class PaymentUI extends JFrame {  // for rollback 2
     private List<Seat> selectedSeats;
     private int totalPrice;
     private ArrayList<String> seatName;
-    private Booking booking = Booking.createBooking(selectedSeats, totalPrice, showtime, movie, payment);
+    private Booking booking;
     private Account account;
 }
