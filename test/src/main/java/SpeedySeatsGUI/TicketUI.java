@@ -6,6 +6,13 @@ package SpeedySeatsGUI;/*
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import javax.swing.*;
+import Booking.*;
+import Movie.*;
+import Theatre.*;
+
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.List;
 
 /**
  *
@@ -16,8 +23,37 @@ public class TicketUI extends javax.swing.JFrame {
     /**
      * Creates new form TicketUI
      */
-    public TicketUI() {
+    private Booking booking;
+
+    public TicketUI(Booking booking) {
         initComponents();
+
+        this.booking = booking;
+        Dictionary<String, Object> bookingInfo = booking.getBookingInfo();
+        Movie movie = (Movie) bookingInfo.get("movie");
+        Showtime shotime = (Showtime) bookingInfo.get("showtime");
+        Theatre theatre = (Theatre) shotime.getShowtimeInfo().get("theatre");
+        List<Seat> seats =  (List<Seat>) bookingInfo.get("seats");
+
+        ArrayList<String> seatName = new ArrayList<>();
+
+        for (Seat seat : seats) {
+            // Get the seat info dictionary from the Seat object
+            Dictionary<String, Object> seatInfo = seat.getSeatInfo();
+
+            // Retrieve the seatNumber (which acts as the seat name) from the dictionary
+            String seatNumber = (String) seatInfo.get("seatNumber");
+
+            if (seatNumber != null) {
+                seatName.add(seatNumber);
+            }
+        }
+
+        movieName.setText("Movie: " + movie.getMovieInfo().get("movieName"));
+        jtheatre.setText("Theatre: " + theatre.getTheatreInfo().get("theatreNumber") );
+        branch.setText("Branch: " + theatre.getTheatreInfo().get("theatreBranch"));
+        showtime.setText("Date/Showtime: " + shotime.getShowtimeInfo().get("showtimeDateTime"));
+        seat.setText("Seat: " + String.join(", ", seatName));
 
         setTitle("SpeedySeat");
 
@@ -32,10 +68,11 @@ public class TicketUI extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
+
     private void initComponents() {
 
         movieName = new javax.swing.JLabel();
-        theatre = new javax.swing.JLabel();
+        jtheatre = new javax.swing.JLabel();
         branch = new javax.swing.JLabel();
         showtime = new javax.swing.JLabel();
         seat = new javax.swing.JLabel();
@@ -48,8 +85,8 @@ public class TicketUI extends javax.swing.JFrame {
         movieName.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         movieName.setText("Movie:");
 
-        theatre.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        theatre.setText("Theatre:");
+        jtheatre.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jtheatre.setText("Theatre:");
 
         branch.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         branch.setText("Branch:");
@@ -93,7 +130,7 @@ public class TicketUI extends javax.swing.JFrame {
                                 .addGap(41, 41, 41)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(seat)
-                                        .addComponent(theatre)
+                                        .addComponent(jtheatre)
                                         .addComponent(movieName)
                                         .addComponent(branch)
                                         .addComponent(showtime))
@@ -116,7 +153,7 @@ public class TicketUI extends javax.swing.JFrame {
                                 .addGap(60, 60, 60)
                                 .addComponent(movieName)
                                 .addGap(18, 18, 18)
-                                .addComponent(theatre)
+                                .addComponent(jtheatre)
                                 .addGap(18, 18, 18)
                                 .addComponent(branch)
                                 .addGap(18, 18, 18)
@@ -150,7 +187,7 @@ public class TicketUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TicketUI().setVisible(true);
+                //new TicketUI().setVisible(true);
             }
         });
     }
@@ -163,6 +200,6 @@ public class TicketUI extends javax.swing.JFrame {
     private javax.swing.JLabel movieName;
     private javax.swing.JLabel seat;
     private javax.swing.JLabel showtime;
-    private javax.swing.JLabel theatre;
+    private javax.swing.JLabel jtheatre;
     // End of variables declaration
 }
