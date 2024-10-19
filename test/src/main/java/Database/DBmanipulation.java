@@ -38,13 +38,11 @@ public class DBmanipulation extends DBconnect {
     public Connection getCon() {
         try {
             con = DriverManager.getConnection(url);
-            return con;
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            disconnect();
+            return null;
         }
-        return null;
+        return con;
     }
 
     public void disconnect() {

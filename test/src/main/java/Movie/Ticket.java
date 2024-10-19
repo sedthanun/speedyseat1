@@ -24,7 +24,7 @@ public class Ticket {
         Dictionary<String, Object> ticketInfo = new Hashtable<>();
 
         ticketInfo.put("ticketID", ticketID);
-        ticketInfo.put("ticketStatus", ticketStatus);
+        //ticketInfo.put("ticketStatus", ticketStatus);
         ticketInfo.put("seat", seat);
         ticketInfo.put("qrCode", qrCode);
 
