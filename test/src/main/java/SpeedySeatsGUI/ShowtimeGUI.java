@@ -1,5 +1,4 @@
 package SpeedySeatsGUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -16,16 +15,20 @@ import Movie.*;
 import Theatre.*;
 
 public class ShowtimeGUI extends JFrame {
+    private Account account;
     private JLabel showtimeLabel;
     private JLabel theaterLabel;
     private JPanel showtimePanel;
     private ArrayList<JButton> showtimeButtons;
     private GridBagConstraints gbcMiddle;
-    private Account account;
+    private JLabel subLabel;
+    private JLabel soundLabel;
+    private JLabel formatLabel;
+    private boolean theaterSelected = false;
 
     public ShowtimeGUI(Movie movie, Account account) {
         this.account = account;
-        setTitle("ShowtimeDemo");
+        setTitle("SpeedySeats");
         setSize(1280, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -37,6 +40,8 @@ public class ShowtimeGUI extends JFrame {
         JPanel leftPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         JLabel blank1 = new JLabel();
+        JLabel Blank = new JLabel();
+        JPanel Blank2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         // Movie poster
         JPanel posterContainer = new JPanel(new BorderLayout());
         posterContainer.setPreferredSize(new Dimension(500, 600));
@@ -60,11 +65,12 @@ public class ShowtimeGUI extends JFrame {
         leftPanel.add(posterContainer, gbc);
 
         // Movie details panel (title, genre, showtime, theater)
-        JPanel posterDescription = new JPanel(new GridLayout(4, 2, 3, 3));
+        JPanel posterDescription = new JPanel(new GridLayout(5, 2, 3, 3));
         JPanel under = new JPanel(new GridLayout(2, 1, 3, 3));
         JLabel titleLabel = new JLabel("Title: " + movie.getMovieInfo().get("movieName"));
         JLabel genreLabel = new JLabel("Genre: " + movie.getMovieInfo().get("movieGenre"));
         JTextArea desLabel = new JTextArea("Description: " + movie.getMovieInfo().get("movieDescription"));
+        JPanel screenFormat = new JPanel(new FlowLayout(FlowLayout.LEFT));
         desLabel.setFocusable(false);
         desLabel.setLineWrap(true);
         desLabel.setWrapStyleWord(true);
@@ -74,6 +80,22 @@ public class ShowtimeGUI extends JFrame {
         JLabel runtimeLabel = new JLabel("Runtime: "+movie.getMovieInfo().get("movieRuntime") + " minutes");
         theaterLabel = new JLabel("Theater: Unselected");
         showtimeLabel = new JLabel("Showtime: Unselected");
+        subLabel = new JLabel();
+        soundLabel = new JLabel();
+        formatLabel = new JLabel();
+        ImageIcon i = new ImageIcon("test/src/main/resources/Icon/sound.png");
+        soundLabel.setIcon(i);
+        ImageIcon i2 = new ImageIcon("test/src/main/resources/Icon/subtitle.png");
+        subLabel.setIcon(i2);
+        ImageIcon i3 = new ImageIcon("test/src/main/resources/Icon/display.png");
+        formatLabel.setIcon(i3);
+        screenFormat.add(soundLabel);
+        screenFormat.add(subLabel);
+        Blank2.add(formatLabel);
+//        screenFormat.add(formatLabel);
+        subLabel.setVisible(false);
+        soundLabel.setVisible(false);
+        formatLabel.setVisible(false);
 
         titleLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
         genreLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
@@ -82,15 +104,21 @@ public class ShowtimeGUI extends JFrame {
         desLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
         ratingLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
         runtimeLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        subLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        soundLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        formatLabel.setFont(new Font("SansSerif", Font.PLAIN, 18));
 
 
         posterDescription.add(titleLabel);
         posterDescription.add(blank1);
         posterDescription.add(genreLabel);
         posterDescription.add(theaterLabel);
-        posterDescription.add(showtimeLabel);
-        posterDescription.add(ratingLabel);
         posterDescription.add(runtimeLabel);
+        posterDescription.add(ratingLabel);
+        posterDescription.add(showtimeLabel);
+        posterDescription.add(Blank);
+        posterDescription.add(screenFormat);
+        posterDescription.add(Blank2);
 
         gbc.gridy = 1;
         gbc.weighty = 0.2;
@@ -100,6 +128,7 @@ public class ShowtimeGUI extends JFrame {
 
 
         // Middle panel - Theater and Showtime buttons
+        JPanel mainRightPanel = new JPanel(new BorderLayout());
         JPanel middlePanel = new JPanel(new GridBagLayout());
         gbcMiddle = new GridBagConstraints();
         gbcMiddle.gridwidth = GridBagConstraints.REMAINDER;
@@ -107,8 +136,6 @@ public class ShowtimeGUI extends JFrame {
         gbcMiddle.insets = new Insets(5, 5, 5, 5);
 
         ArrayList<JButton> theaterButtons = createTheaterButtons(movie);
-
-
 
 
 
@@ -135,8 +162,20 @@ public class ShowtimeGUI extends JFrame {
         gbcMiddle.fill = GridBagConstraints.BOTH;
         middlePanel.add(showtimePanel, gbcMiddle);
 
+
+        JLabel branch = new JLabel("KMITL");
+        branch.setFont(new Font("SansSerif", Font.BOLD, 24));
+        ImageIcon TIcon =  new ImageIcon("test/src/main/resources/Icon/Icon Theatre.png");
+        Image sTIcon = TIcon.getImage();
+        Image resizedImage = sTIcon.getScaledInstance(40,40, Image.SCALE_SMOOTH);
+        ImageIcon realTIcon = new ImageIcon(resizedImage);
+        branch.setIcon(realTIcon);
+        branch.setHorizontalAlignment(SwingConstants.CENTER);
+
+        mainRightPanel.add(branch,BorderLayout.NORTH);
+        mainRightPanel.add(middlePanel,BorderLayout.CENTER);
         // Add scroll pane to middle panel
-        JScrollPane scrollPane = new JScrollPane(middlePanel);
+        JScrollPane scrollPane = new JScrollPane(mainRightPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -206,6 +245,20 @@ public class ShowtimeGUI extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     showtimeLabel.setText("Showtime: " + ab.getShowtimeInfo().get("showtimeDateTime"));
+
+                    theaterSelected = true;
+
+                    String sound = (String) ab.getShowtimeInfo().get("sound");
+                    String subtitle = (String) ab.getShowtimeInfo().get("subtitle");
+                    String screenFormat = (String) ab.getShowtimeInfo().get("screenFormat");
+                    if (theaterSelected) {
+                        soundLabel.setText("Sound: " + sound + "    ");
+                        subLabel.setText("Subtitle: " + subtitle);
+                        formatLabel.setText("Format: " + screenFormat);
+                        soundLabel.setVisible(true);
+                        subLabel.setVisible(true);
+                        formatLabel.setVisible(true);
+                    }
                     new SeatSelection(ab,movie,account);
                 }
             });
