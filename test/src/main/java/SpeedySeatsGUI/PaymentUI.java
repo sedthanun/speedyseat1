@@ -28,7 +28,7 @@ import Booking.*;
  * @author USER
  */
 
-public class PaymentUI extends JFrame {  // for rollback 2
+public class PaymentUI extends JFrame implements IPaymentPage{  // for rollback 2
 
     /**
      * Creates new form PaymentUI
@@ -929,32 +929,14 @@ public class PaymentUI extends JFrame {  // for rollback 2
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 String payDate = dateTime.format(formatter);
 
-
-
-                payment = new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
-
-                booking = Booking.createBooking(selectedSeats, totalPrice, showtime, movie, payment);
-
-                Booking.saveBookingToDB(booking, account);
-
-                new TicketUI(booking).setVisible(true);
-
-                System.out.println("Confirm");
+                confirmBooking(showtime, movie, selectedSeats, totalPrice, account, payDate);
             }
         } else {
             LocalDateTime dateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String payDate = dateTime.format(formatter);
 
-            payment = new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
-
-            booking = Booking.createBooking(selectedSeats, totalPrice, showtime, movie, payment);
-
-            Booking.saveBookingToDB(booking, account);
-
-            new TicketUI(booking).setVisible(true);
-
-            System.out.println("Confirm");
+            confirmBooking(showtime, movie, selectedSeats, totalPrice, account, payDate);
         }
     }
 
@@ -1030,4 +1012,17 @@ public class PaymentUI extends JFrame {  // for rollback 2
     private ArrayList<String> seatName;
     private Booking booking;
     private Account account;
+
+    @Override
+    public void confirmBooking(Showtime showtime, Movie movie, List<Seat> selectedSeats, int totalPrice, Account account, String payDate) {
+        payment = new Payment(movie, showtime, selectedSeats, currentCard, totalPrice, payDate);
+
+        booking = Booking.createBooking(selectedSeats, totalPrice, showtime, movie, payment);
+
+        Booking.saveBookingToDB(booking, account);
+
+        new TicketUI(booking).setVisible(true);
+
+        System.out.println("Confirm");
+    }
 }

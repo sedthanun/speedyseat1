@@ -5,10 +5,11 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import Booking.Account;
 import Booking.Seat;
 import Theatre.*;
 import Movie.*;
-public class Payment {
+public class Payment implements IPaymentPage {
     // Attribute: List of PaymentMethod (Aggregation)
     private PayByQR payByQR;
     private PayByCash payByCash;
@@ -62,6 +63,11 @@ public class Payment {
         paymentMethod.put("payByBanking", payByBanking);
 
         return paymentMethod.get(method);
+    }
+
+    @Override
+    public void confirmBooking(Showtime showtime, Movie movie, List<Seat> selectedSeats, int totalPrice, Account account, String payDate) {
+
     }
 
     // Make a payment using a specific payment method

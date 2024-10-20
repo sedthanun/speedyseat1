@@ -2,7 +2,7 @@ package Payment;
 
 import SpeedySeatsGUI.RoundedPanel;
 
-public class PayByCash extends javax.swing.JPanel implements PaymentMethod {
+public class PayByCash extends PaymentMethod {
 
     private static String methodName = "Cash";
 
@@ -111,6 +111,16 @@ public class PayByCash extends javax.swing.JPanel implements PaymentMethod {
     @Override
     public String getDetails() {
         return getDetails();
+    }
+
+    @Override
+    String getPaymentMethodName() {
+        return "";
+    }
+
+    @Override
+    public String PaymentMethod() {
+        return "";
     }
 
     // Get name for cash payment method

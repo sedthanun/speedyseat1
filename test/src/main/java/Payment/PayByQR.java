@@ -5,7 +5,7 @@ import SpeedySeatsGUI.RoundedPanel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class PayByQR extends javax.swing.JPanel implements PaymentMethod {
+public class PayByQR extends PaymentMethod {
 
     private static String methodName = "QRCode";
 
@@ -143,9 +143,14 @@ public class PayByQR extends javax.swing.JPanel implements PaymentMethod {
     @Override
     public String getDetails() { return methodName; }
 
+    @Override
+    String getPaymentMethodName() {
+        return "";
+    }
+
     // Get name for cash payment method
     @Override
-    public String getName() {
+    public String PaymentMethod() {
         return getName();
     }
 

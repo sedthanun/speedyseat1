@@ -1,6 +1,6 @@
 package Payment;
 
-public class PayByBanking extends javax.swing.JPanel implements PaymentMethod {
+public class PayByBanking extends PaymentMethod {
 
     private static String methodName = "OnlineBanking";
 
@@ -165,6 +165,16 @@ public class PayByBanking extends javax.swing.JPanel implements PaymentMethod {
     public String getDetails() {
 
         return getDetails();
+    }
+
+    @Override
+    String getPaymentMethodName() {
+        return "";
+    }
+
+    @Override
+    public String PaymentMethod() {
+        return "";
     }
 
     // Get name for banking payment method
