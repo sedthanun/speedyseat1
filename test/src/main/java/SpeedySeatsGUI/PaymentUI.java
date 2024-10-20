@@ -1025,4 +1025,14 @@ public class PaymentUI extends JFrame implements IPaymentPage{  // for rollback 
 
         System.out.println("Confirm");
     }
+
+    @Override
+    public void confirmPay() {
+
+    }
+
+    @Override
+    public void selectPaymentMethod(PaymentMethod paymentMethod) {
+
+    }
 }

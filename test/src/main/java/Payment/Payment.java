@@ -70,6 +70,16 @@ public class Payment implements IPaymentPage {
 
     }
 
+    @Override
+    public void confirmPay() {
+
+    }
+
+    @Override
+    public void selectPaymentMethod(PaymentMethod paymentMethod) {
+
+    }
+
     // Make a payment using a specific payment method
     public void makePayment(PaymentMethod paymentMethod) {
     }
